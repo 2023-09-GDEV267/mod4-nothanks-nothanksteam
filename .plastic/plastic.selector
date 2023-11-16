@@ -1,0 +1,4 @@
+repository "mod4-nothanks-nothanksteam@sanzalone@cloud"
+  path "/"
+    br "/main"
+    co "/main"
