@@ -32,16 +32,16 @@ public class CoreLoop : MonoBehaviour
         currentPlayer = 0;
         maxPlayers = 4;
         players[0] = new Player();
-        players[0].playerId = 1;
+        players[0].playerId = 4;
         //players[0].playerColor = Color.blue;
         players[1] = new Player();
-        players[1].playerId = 2;
+        players[1].playerId = 1;
         //players[0].playerColor = Color.red;
         players[2] = new Player();
-        players[2].playerId = 3;
+        players[2].playerId = 2;
         //players[0].playerColor = Color.green;
         players[3] = new Player();
-        players[3].playerId = 4;
+        players[3].playerId = 3;
         //players[0].playerColor = Color.yellow;
     }
 
