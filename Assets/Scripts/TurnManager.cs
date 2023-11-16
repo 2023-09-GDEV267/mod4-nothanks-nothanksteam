@@ -6,10 +6,12 @@ using UnityEngine;
 public class TurnManager : MonoBehaviour
 {
     [Header("Set in inspector")]
-    public int currentPlayer;
     public int numOfPlayers;
 
     [Header("Set dynamically")]
+    public int currentPlayer;
+
+    [SerializeField]
     public Player[] players;
 
     private void Awake()
