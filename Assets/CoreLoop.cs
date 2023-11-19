@@ -21,6 +21,16 @@ public class Player
     public Color playerColor;
     public PlayerType type;
     public int markers;
+
+    public void AddMarker()
+    {
+        Debug.Log($"Ding! {playerName} got a marker.");
+        markers++;
+    }
+    public void RemoveMarker() { 
+        if (markers > 0) markers--; 
+    }
+
 }
 public class CoreLoop : MonoBehaviour
 {
