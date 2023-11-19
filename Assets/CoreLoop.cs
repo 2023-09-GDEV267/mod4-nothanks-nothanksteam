@@ -13,7 +13,11 @@ public enum BotPlayLevel
     easy,medium, hard
 }
 
-
+public class Card
+{
+    public int value;
+    public int markers;
+}
 public class Player
 {
     public int playerID;
@@ -22,26 +26,36 @@ public class Player
     public PlayerType type;
     public int markers;
 
-    public void AddMarker()
+    public void AddMarkers(int quantity)
     {
-        Debug.Log($"Ding! {playerName} got a marker.");
-        markers++;
+
+        markers += quantity;
+        Debug.Log($"Ding! {playerName} got {quantity} markers.");
     }
     public void RemoveMarker() { 
-        if (markers > 0) markers--; 
+        if (markers > 0) markers--;
+        Debug.Log($"{playerName} spent a marker. They have {markers} markers left.");
     }
 
 }
 public class CoreLoop : MonoBehaviour
 {
-    public int currentPlayer;
+    public int currentPlayerIndex;
+    public Player currentPlayer;
+    public Card targetCard;
     public int maxPlayers;
     Player[] players = new Player[4];
     // Start is called before the first frame update
     void Start()
     {
-        currentPlayer = 0;
+        currentPlayerIndex = 0;
+        
         maxPlayers = 4;
+
+        targetCard = new Card();
+        targetCard.markers = 0;
+        targetCard.value = (int)Mathf.Round(Random.Range(3f,35f));
+
 
         players[0] = new Player();
         players[0].playerName = "Slorpo";
@@ -68,18 +82,59 @@ public class CoreLoop : MonoBehaviour
         {
             p.markers = 11;
         }
-        Debug.Log($"Current player is now: {players[currentPlayer].playerName}\nThey have {players[currentPlayer].markers} markers.");
+        currentPlayer = players[currentPlayerIndex];
+        PrintGameState();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            if (currentPlayer.markers < 1)
+            {
+                Debug.Log($"{currentPlayer.playerName} is out of markers!");
+            }
+            else
+            {
+                Debug.Log($"{currentPlayer.playerName} says NO THANKS!");
+                targetCard.markers += 1;
+                currentPlayer.RemoveMarker();
+                if (currentPlayerIndex >= maxPlayers - 1) { currentPlayerIndex = 0; }
+                else { currentPlayerIndex++; }
+                currentPlayer = players[currentPlayerIndex];
+                PrintGameState();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            currentPlayer.AddMarkers(targetCard.markers);
+            targetCard.markers = 0;
+            Debug.Log($"{currentPlayer.playerName} has taken the {targetCard.value} card!");
+
+            targetCard = new Card();
+            targetCard.markers = 0;
+            targetCard.value = (int)Mathf.Round(Random.Range(3f, 35f));
+            if (currentPlayerIndex >= maxPlayers - 1) { currentPlayerIndex = 0; }
+            else { currentPlayerIndex++; }
+            currentPlayer = players[currentPlayerIndex];
+
+            PrintGameState();
+        }
+
         if (Input.GetKeyDown(KeyCode.N))
         {
-            if (currentPlayer >= maxPlayers - 1) { currentPlayer = 0; }
-            else { currentPlayer++; }
+            if (currentPlayerIndex >= maxPlayers - 1) { currentPlayerIndex = 0; }
+            else { currentPlayerIndex++; }
+            currentPlayer = players[currentPlayerIndex];
 
-            Debug.Log($"Current player is now: {players[currentPlayer].playerName}\nThey have {players[currentPlayer].markers} markers.");
+            PrintGameState();
         }
+    }
+
+    void PrintGameState()
+    {
+        Debug.Log($"Current player is now: {currentPlayer.playerName}. They have {currentPlayer.markers} markers. The current target card is the {targetCard.value} card and has {targetCard.markers} markers on it.");
     }
 }
