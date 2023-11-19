@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 
 public enum PlayerType
@@ -11,12 +12,15 @@ public enum BotPlayLevel
 {
     easy,medium, hard
 }
+
+
 public class Player
 {
     public int playerID;
     public string playerName;
     public Color playerColor;
     public PlayerType type;
+    public int markers;
 }
 public class CoreLoop : MonoBehaviour
 {
@@ -34,6 +38,7 @@ public class CoreLoop : MonoBehaviour
         players[0].playerID = 1;
         players[0].playerColor = Color.blue;
 
+
         players[1] = new Player();
         players[1].playerName = "Krumbo";
         players[1].playerID = 2;
@@ -48,7 +53,12 @@ public class CoreLoop : MonoBehaviour
         players[3].playerName = "Jeff";
         players[3].playerID = 4;
         players[3].playerColor = Color.green;
-        Debug.Log("Current player is now: " + players[currentPlayer].playerName);
+
+        foreach(Player p in players)
+        {
+            p.markers = 11;
+        }
+        Debug.Log($"Current player is now: {players[currentPlayer].playerName}\nThey have {players[currentPlayer].markers} markers.");
     }
 
     // Update is called once per frame
@@ -59,7 +69,7 @@ public class CoreLoop : MonoBehaviour
             if (currentPlayer >= maxPlayers - 1) { currentPlayer = 0; }
             else { currentPlayer++; }
 
-            Debug.Log("Current player is now: " + players[currentPlayer].playerName);
+            Debug.Log($"Current player is now: {players[currentPlayer].playerName}\nThey have {players[currentPlayer].markers} markers.");
         }
     }
 }
