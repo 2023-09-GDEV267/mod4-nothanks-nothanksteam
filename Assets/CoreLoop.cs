@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Collections;
 using UnityEngine;
 
@@ -54,9 +55,13 @@ public class CoreLoop : MonoBehaviour
     public Deck deck;
     public int maxPlayers;
     Player[] players = new Player[4];
+
+    public List<int> testList;
     // Start is called before the first frame update
     void Start()
     {
+        testList = new List<int> { 32, 29, 35, 21, 20, 22, 15 };
+        CalculateScore(testList);
 
         currentPlayerIndex = 0;
         
@@ -94,6 +99,35 @@ public class CoreLoop : MonoBehaviour
         }
         currentPlayer = players[currentPlayerIndex];
         PrintGameState();
+    }
+
+    public void CalculateScore(List<int> cardValues)
+    {
+        cardValues.Sort();
+        List<List<int>> streaks= new List<List<int>>();
+        List<int> currentStreak = new List<int> { cardValues[0] };
+        
+        for (int i = 1; i < cardValues.Count; i++){
+            if( cardValues[i] == currentStreak.Max() + 1)
+            {
+                currentStreak.Add(cardValues[i]);
+            }
+            else
+            {
+                streaks.Add(currentStreak);
+                currentStreak = new List<int> { cardValues[i] };
+            }
+        } 
+        
+        foreach(List<int> streak in streaks)
+        {
+            string line = "";
+            foreach(int value in streak)
+            {
+                line += $"{value} ";
+            }
+            Debug.Log(line);
+        }
     }
 
     // Update is called once per frame
