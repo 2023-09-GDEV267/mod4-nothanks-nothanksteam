@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
@@ -16,8 +17,13 @@ public enum BotPlayLevel
 public class Card
 {
     public int value;
-    public int markers;
+    public int markers; 
 }
+
+public class Deck
+{ }
+
+
 public class Player
 {
     public int playerID;
@@ -25,10 +31,9 @@ public class Player
     public Color playerColor;
     public PlayerType type;
     public int markers;
-
+    public List<Card> cards = new List<Card>();
     public void AddMarkers(int quantity)
     {
-
         markers += quantity;
         Debug.Log($"Ding! {playerName} got {quantity} markers.");
     }
@@ -36,18 +41,23 @@ public class Player
         if (markers > 0) markers--;
         Debug.Log($"{playerName} spent a marker. They have {markers} markers left.");
     }
-
+    public void TakeCard(Card card)
+    {
+        cards.Add(card);
+    }
 }
 public class CoreLoop : MonoBehaviour
 {
     public int currentPlayerIndex;
     public Player currentPlayer;
     public Card targetCard;
+    public Deck deck;
     public int maxPlayers;
     Player[] players = new Player[4];
     // Start is called before the first frame update
     void Start()
     {
+
         currentPlayerIndex = 0;
         
         maxPlayers = 4;
@@ -91,6 +101,7 @@ public class CoreLoop : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.X))
         {
+            // Player refuses to take the card
             if (currentPlayer.markers < 1)
             {
                 Debug.Log($"{currentPlayer.playerName} is out of markers!");
@@ -109,7 +120,9 @@ public class CoreLoop : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
+            // Player accepts the card
             currentPlayer.AddMarkers(targetCard.markers);
+            currentPlayer.TakeCard(targetCard);
             targetCard.markers = 0;
             Debug.Log($"{currentPlayer.playerName} has taken the {targetCard.value} card!");
 
@@ -125,6 +138,7 @@ public class CoreLoop : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.N))
         {
+            // Pass turn test
             if (currentPlayerIndex >= maxPlayers - 1) { currentPlayerIndex = 0; }
             else { currentPlayerIndex++; }
             currentPlayer = players[currentPlayerIndex];
@@ -135,6 +149,11 @@ public class CoreLoop : MonoBehaviour
 
     void PrintGameState()
     {
-        Debug.Log($"Current player is now: {currentPlayer.playerName}. They have {currentPlayer.markers} markers. The current target card is the {targetCard.value} card and has {targetCard.markers} markers on it.");
+        string heldCards = "";
+        foreach (Card card in currentPlayer.cards)
+        {
+            heldCards += $"{card.value} ";
+        }
+        Debug.Log($"Current player is now: {currentPlayer.playerName}. They have the following cards: [{heldCards}]. They have {currentPlayer.markers} markers. The current target card is the {targetCard.value} card and has {targetCard.markers} markers on it.");
     }
 }
