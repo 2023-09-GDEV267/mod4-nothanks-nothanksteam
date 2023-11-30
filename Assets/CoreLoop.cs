@@ -61,10 +61,15 @@ public class CoreLoop : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Fixed list for testing score calculation
         List<int> testList = new List<int> { 32, 29, 35, 21, 20, 22, 15 };
         List<Card> testCards = new List<Card>();
-        List<Card> randomCards = new List<Card>(); 
+
+        // Randomized list
+        List<Card> randomCards = new List<Card>();
         HashSet<int> randomSet = new HashSet<int>();
+        
+        //Populating fixed card list
         foreach (int value in testList)
         {
             Card newCard = new Card();
@@ -72,17 +77,22 @@ public class CoreLoop : MonoBehaviour
             testCards.Add(newCard);
         }
 
+        // Generating HashSet of non-repeating random numbers within range 
         for (int i = 0; i < (int)Mathf.Round(Random.Range(3f, 15f)); i++)
         {
+
             randomSet.Add((int)Mathf.Round(Random.Range(3f, 35f)));
         }
         
+        // Creating a set of random cards
         foreach(int value in randomSet)
         {
             Card newCard = new Card();
             newCard.value = value;
             randomCards.Add(newCard);
         }
+
+        // Testing scoring
         Debug.Log("Testing scoring on fixed cards");
         CalculateScore(testCards,0);
 
@@ -128,8 +138,10 @@ public class CoreLoop : MonoBehaviour
         PrintGameState();
     }
 
+    // Old method for calculating score from when I was working with a list of ints
     public void OldCalculateScore(List<int> cardValues)
     {
+        
         cardValues.Sort();
         List<List<int>> streaks= new List<List<int>>();
         List<int> currentStreak = new List<int> { cardValues[0] };
@@ -156,10 +168,10 @@ public class CoreLoop : MonoBehaviour
             Debug.Log(line);
         }
     }
+
+
     public void CalculateScore(List<Card> cards, int counters)
-    {
-        Debug.Log("We've successfully called this function");
-        
+    {   
         List<Card> sortedCards = cards.OrderBy(card => card.value).ToList();
         List<List<Card>> streaks = new List<List<Card>>();
         List<Card> currentStreak = new List<Card> { sortedCards[0] };
@@ -184,6 +196,10 @@ public class CoreLoop : MonoBehaviour
         }
         totalScore -= counters;
 
+
+        // Printing the score and streaks for now. 
+        // TODO separate methods for sorting streaks and calculating score
+        // (So we can show streaks in a player's hand)
         foreach (List<Card> streak in streaks)
         {
             string line = "";
