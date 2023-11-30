@@ -15,8 +15,8 @@ public class AudioManager : MonoBehaviour
     public AudioClip tokenClink;
     public float randomPitchMin;
     public float randomPitchMax;
-    private AudioSource sfxSource;
 
+    private AudioSource sfxSource;
     private AudioSource musicSource;
     private AudioClip currentClip;
     private bool fadeIn;
