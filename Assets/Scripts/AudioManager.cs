@@ -37,6 +37,10 @@ public class AudioManager : MonoBehaviour
         fadeOut = false;
         currentClip = menuClip;
         musicSource.Play();
+
+        //remove once player prefs are set
+        musicVol = 1;
+        sfxVol = 1;
     }
 
     void Update()
