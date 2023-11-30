@@ -1,66 +1,74 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading;
+using System.Diagnostics.Tracing;
 
 public class MusicManager : MonoBehaviour
 {
     public AudioClip menuClip;
     public AudioClip gameClip;
     public AudioClip scoringClip;
+    public float fadeTime;
 
     private AudioSource source;
+    private AudioClip currentClip;
+    private bool fadeIn;
+    private bool fadeOut;
 
-    private void Awake()
+    void Awake()
     {
         source = GetComponent<AudioSource>();
         source.volume = 0f;
-        MenuMusic();
+        source.clip = menuClip;
+        fadeIn = true;
+        fadeOut = false;
+        currentClip = menuClip;
+        source.Play();
+    }
+
+    void Update()
+    {
+        if (fadeIn && source.volume < 1)
+        {
+            source.volume += Time.deltaTime / fadeTime;
+            if (source.volume >= 1)
+            {
+                source.volume = 1;
+                fadeIn = false;
+            }
+        }
+
+        if (fadeOut && source.volume > 0)
+        {
+            source.volume -= Time.deltaTime / fadeTime;
+            if (source.volume <= 0)
+            {
+                source.volume = 0;
+                source.Stop();
+                source.clip = currentClip;
+                source.Play();
+                fadeOut = false;
+                fadeIn = true;
+            }
+        }
     }
 
     public void MenuMusic()
     {
-        FadeOut(2);
-        source.Stop();
-        source.clip = menuClip;
-        source.Play();
-        FadeIn(2);
+        currentClip = menuClip;
+        fadeOut = true;
     }
 
     public void GameMusic()
     {
-        FadeOut(2);
-        source.Stop();
-        source.clip = gameClip;
-        source.Play();
-        FadeIn(2);
+        currentClip = gameClip;
+        fadeOut = true;
     }
 
     public void ScoringMusic()
     {
-        FadeOut(2);
-        source.Stop();
-        source.clip = scoringClip;
-        source.Play();
-        FadeIn(2);
-    }
-
-    private void FadeOut(float fadeTime)
-    {
-        float startVol = source.volume;
-
-        while (source.volume > 0)
-        {
-            source.volume -= startVol * Time.deltaTime / fadeTime;
-        }
-    }
-
-    private void FadeIn(float fadeTime)
-    {
-        float startVol = source.volume + 0.1f;
-
-        while (source.volume < 0)
-        {
-            source.volume += startVol * Time.deltaTime / fadeTime;
-        }
+        currentClip = scoringClip;
+        fadeOut = true;
     }
 }
