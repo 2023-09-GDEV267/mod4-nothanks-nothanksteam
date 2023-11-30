@@ -3,11 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Collections;
+using Unity.Collections.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEngine;
-
-
-
+using UnityEngine.SocialPlatforms.Impl;
 
 public class CoreLoop : MonoBehaviour
 {
@@ -138,16 +137,15 @@ public class CoreLoop : MonoBehaviour
         }
     }
 
-
-    public void CalculateScore(List<Card> cards, int counters)
-    {   
+    public List<List<Card>> SortStreaks(List<Card> cards)
+    {
         List<Card> sortedCards = cards.OrderBy(card => card.value).ToList();
         List<List<Card>> streaks = new List<List<Card>>();
         List<Card> currentStreak = new List<Card> { sortedCards[0] };
 
         for (int i = 1; i < sortedCards.Count; i++)
         {
-            if (sortedCards[i].value == currentStreak.Select(card=>card.value).ToList().Max() + 1)
+            if (sortedCards[i].value == currentStreak.Select(card => card.value).ToList().Max() + 1)
             {
                 currentStreak.Add(sortedCards[i]);
             }
@@ -157,7 +155,13 @@ public class CoreLoop : MonoBehaviour
                 currentStreak = new List<Card> { sortedCards[i] };
             }
         }
+        return streaks;
+    }
 
+    public int CalculateScore(List<Card> cards, int counters)
+    {
+
+        List<List<Card>> streaks = SortStreaks(cards);
         int totalScore = 0;
         foreach (List<Card> streak in streaks)
         {
@@ -179,6 +183,7 @@ public class CoreLoop : MonoBehaviour
             Debug.Log(line);
         }
         Debug.Log($"The total score was {totalScore}");
+        return totalScore;
 
     }
 
