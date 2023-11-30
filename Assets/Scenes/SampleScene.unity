@@ -2898,6 +2898,7 @@ MonoBehaviour:
   menuClip: {fileID: 8300000, guid: 23350d215ade0a94cbe66416170b5bfe, type: 3}
   gameClip: {fileID: 8300000, guid: da4d0205c71b6684e9d9472c6e9330f0, type: 3}
   scoringClip: {fileID: 8300000, guid: 0eb89934bd50173459aaaf15bc85d044, type: 3}
+  fadeTime: 2
 --- !u!82 &1763410961
 AudioSource:
   m_ObjectHideFlags: 0
