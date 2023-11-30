@@ -38,11 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-<<<<<<<< HEAD:Assets/GameScene-Eric.unity
   m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
-========
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
->>>>>>>> kevin:Assets/Scenes/CoreLoop.unity
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -127,11 +123,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
-<<<<<<<< HEAD:Assets/GameScene-Eric.unity
---- !u!1 &1043152
-========
---- !u!1 &665694740
->>>>>>>> kevin:Assets/Scenes/CoreLoop.unity
+--- !u!1 &2006438067
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,15 +131,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-<<<<<<<< HEAD:Assets/GameScene-Eric.unity
-  - component: {fileID: 1043155}
-  - component: {fileID: 1043154}
-  - component: {fileID: 1043153}
-========
-  - component: {fileID: 665694743}
-  - component: {fileID: 665694742}
-  - component: {fileID: 665694741}
->>>>>>>> kevin:Assets/Scenes/CoreLoop.unity
+  - component: {fileID: 2006438070}
+  - component: {fileID: 2006438069}
+  - component: {fileID: 2006438068}
+  - component: {fileID: 2006438071}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -155,35 +142,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<<< HEAD:Assets/GameScene-Eric.unity
---- !u!81 &1043153
-========
---- !u!81 &665694741
->>>>>>>> kevin:Assets/Scenes/CoreLoop.unity
+--- !u!81 &2006438068
 AudioListener:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<<< HEAD:Assets/GameScene-Eric.unity
-  m_GameObject: {fileID: 1043152}
+  m_GameObject: {fileID: 2006438067}
   m_Enabled: 1
---- !u!20 &1043154
-========
-  m_GameObject: {fileID: 665694740}
-  m_Enabled: 1
---- !u!20 &665694742
->>>>>>>> kevin:Assets/Scenes/CoreLoop.unity
+--- !u!20 &2006438069
 Camera:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<<< HEAD:Assets/GameScene-Eric.unity
-  m_GameObject: {fileID: 1043152}
-========
-  m_GameObject: {fileID: 665694740}
->>>>>>>> kevin:Assets/Scenes/CoreLoop.unity
+  m_GameObject: {fileID: 2006438067}
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
@@ -228,21 +201,13 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
-<<<<<<<< HEAD:Assets/GameScene-Eric.unity
---- !u!4 &1043155
-========
---- !u!4 &665694743
->>>>>>>> kevin:Assets/Scenes/CoreLoop.unity
+--- !u!4 &2006438070
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<<< HEAD:Assets/GameScene-Eric.unity
-  m_GameObject: {fileID: 1043152}
-========
-  m_GameObject: {fileID: 665694740}
->>>>>>>> kevin:Assets/Scenes/CoreLoop.unity
+  m_GameObject: {fileID: 2006438067}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: -10}
@@ -251,11 +216,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<<< HEAD:Assets/GameScene-Eric.unity
---- !u!1 &673586495
-========
---- !u!1 &987985402
->>>>>>>> kevin:Assets/Scenes/CoreLoop.unity
+--- !u!114 &2006438071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2006438067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34ce21f4e169f0446bedf2d71a379d40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 4406202415597138705, guid: 6e5c780d1038c5d4288906314bc0afaa, type: 3}
+  currentPlayerIndex: 0
+  currentPlayer: {fileID: 0}
+  roundPlayerIndex: 0
+  roundPlayer: {fileID: 0}
+  maxPlayers: 0
+--- !u!1 &2046670899
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -263,13 +242,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-<<<<<<<< HEAD:Assets/GameScene-Eric.unity
-  - component: {fileID: 673586497}
-  - component: {fileID: 673586496}
-========
-  - component: {fileID: 987985404}
-  - component: {fileID: 987985403}
->>>>>>>> kevin:Assets/Scenes/CoreLoop.unity
+  - component: {fileID: 2046670901}
+  - component: {fileID: 2046670900}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -277,21 +251,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<<< HEAD:Assets/GameScene-Eric.unity
---- !u!108 &673586496
-========
---- !u!108 &987985403
->>>>>>>> kevin:Assets/Scenes/CoreLoop.unity
+--- !u!108 &2046670900
 Light:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<<< HEAD:Assets/GameScene-Eric.unity
-  m_GameObject: {fileID: 673586495}
-========
-  m_GameObject: {fileID: 987985402}
->>>>>>>> kevin:Assets/Scenes/CoreLoop.unity
+  m_GameObject: {fileID: 2046670899}
   m_Enabled: 1
   serializedVersion: 10
   m_Type: 1
@@ -347,21 +313,13 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
-<<<<<<<< HEAD:Assets/GameScene-Eric.unity
---- !u!4 &673586497
-========
---- !u!4 &987985404
->>>>>>>> kevin:Assets/Scenes/CoreLoop.unity
+--- !u!4 &2046670901
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<<< HEAD:Assets/GameScene-Eric.unity
-  m_GameObject: {fileID: 673586495}
-========
-  m_GameObject: {fileID: 987985402}
->>>>>>>> kevin:Assets/Scenes/CoreLoop.unity
+  m_GameObject: {fileID: 2046670899}
   serializedVersion: 2
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
   m_LocalPosition: {x: 0, y: 3, z: 0}
@@ -370,64 +328,9 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
-<<<<<<<< HEAD:Assets/GameScene-Eric.unity
---- !u!1 &1697213566
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1697213568}
-  - component: {fileID: 1697213567}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1697213567
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1697213566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34ce21f4e169f0446bedf2d71a379d40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentPlayer: 0
-  maxPlayers: 4
---- !u!4 &1697213568
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1697213566}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-========
->>>>>>>> kevin:Assets/Scenes/CoreLoop.unity
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-<<<<<<<< HEAD:Assets/GameScene-Eric.unity
-  - {fileID: 1043155}
-  - {fileID: 673586497}
-  - {fileID: 1697213568}
-========
-  - {fileID: 665694743}
-  - {fileID: 987985404}
->>>>>>>> kevin:Assets/Scenes/CoreLoop.unity
+  - {fileID: 2006438070}
+  - {fileID: 2046670901}
