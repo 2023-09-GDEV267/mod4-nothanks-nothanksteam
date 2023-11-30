@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,12 @@ public enum PlayerType
     Bot
 }
 
+//[Header("Set in Inspector")] //Uncomment all when assets are added
+//public TextAsset deckXML;
+//public textAssest layoutXML;
+
+//[Header("Set Dynamically")] //Uncomment all when assets are added
+//public List<Cards> drawPile;
 
 public class Player
 {
