@@ -41,38 +41,48 @@ public class TurnManager : MonoBehaviour
         Debug.Log("It is now " + players[currentTurnPlayer].playerName + "'s turn.");
     }
 
-    private void Update()
+    void Update()
     {
         if (Input.GetKeyDown("n"))
         {
-            players[currentTurnPlayer].state = PlayerState.idle;
-            currentTurnPlayer++;
-
-            if (currentTurnPlayer == players.Length)
-            {
-                currentTurnPlayer = 0;
-            }
-
-            players[currentTurnPlayer].state = PlayerState.decision;
-
-            Debug.Log("It is now " + players[currentTurnPlayer].playerName + "'s turn.");
+            AdvanceTurn();
         }
 
         if (Input.GetKeyDown("x"))
         {
-            players[currentTurnPlayer].state = PlayerState.idle;
-            Debug.Log(players[currentTurnPlayer].playerName + "takes the card.");
-            currentRoundPlayer++;
-
-            if (currentRoundPlayer == players.Length)
-            {
-                currentRoundPlayer = 0;
-            }
-
-            currentTurnPlayer = currentRoundPlayer;
-            players[currentTurnPlayer].state = PlayerState.decision;
-
-            Debug.Log(players[currentRoundPlayer].playerName + " is starting the next round.");
+            AdvanceRound();
         }
+    }
+
+    public void AdvanceTurn()
+    {
+        players[currentTurnPlayer].state = PlayerState.idle;
+        currentTurnPlayer++;
+
+        if (currentTurnPlayer == players.Length)
+        {
+            currentTurnPlayer = 0;
+        }
+
+        players[currentTurnPlayer].state = PlayerState.decision;
+
+        Debug.Log("It is now " + players[currentTurnPlayer].playerName + "'s turn.");
+    }
+
+    public void AdvanceRound()
+    {
+        players[currentTurnPlayer].state = PlayerState.idle;
+        Debug.Log(players[currentTurnPlayer].playerName + "takes the card.");
+        currentRoundPlayer++;
+
+        if (currentRoundPlayer == players.Length)
+        {
+            currentRoundPlayer = 0;
+        }
+
+        currentTurnPlayer = currentRoundPlayer;
+        players[currentTurnPlayer].state = PlayerState.decision;
+
+        Debug.Log(players[currentRoundPlayer].playerName + " is starting the next round.");
     }
 }

@@ -812,8 +812,8 @@ MonoBehaviour:
   fadeTime: 2
   cardFlip: {fileID: 0}
   tokenClink: {fileID: 0}
-  randomPitchMin: 0
-  randomPitchMax: 0
+  randomPitchMin: 0.5
+  randomPitchMax: 1.5
 --- !u!1 &573359735
 GameObject:
   m_ObjectHideFlags: 0
@@ -1866,7 +1866,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numOfPlayers: 4
-  currentPlayer: 0
+  currentTurnPlayer: 0
+  currentRoundPlayer: 0
   players: []
 --- !u!4 &1245123035
 Transform:
