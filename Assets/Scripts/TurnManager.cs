@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 
 public class TurnManager : MonoBehaviour
@@ -72,7 +71,7 @@ public class TurnManager : MonoBehaviour
     public void AdvanceRound()
     {
         players[currentTurnPlayer].state = PlayerState.idle;
-        Debug.Log(players[currentTurnPlayer].playerName + "takes the card.");
+        Debug.Log(players[currentTurnPlayer].playerName + " takes the card.");
         currentRoundPlayer++;
 
         if (currentRoundPlayer == players.Length)

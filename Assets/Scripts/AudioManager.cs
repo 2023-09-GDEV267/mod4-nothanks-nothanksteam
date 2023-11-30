@@ -21,13 +21,18 @@ public class AudioManager : MonoBehaviour
     private AudioClip currentClip;
     private bool fadeIn;
     private bool fadeOut;
+    private float musicVol;
+    private float sfxVol;
 
     void Awake()
     {
+        musicVol = PlayerPrefs.GetFloat("musicVolume");
+        sfxVol = PlayerPrefs.GetFloat("SoundEffectsVolume");
         musicSource = gameObject.transform.Find("MusicManager").gameObject.GetComponent<AudioSource>();
         musicSource.volume = 0f;
         musicSource.clip = menuClip;
         sfxSource = gameObject.transform.Find("SFXManager").gameObject.GetComponent<AudioSource>();
+        sfxSource.volume = sfxVol;
         fadeIn = true;
         fadeOut = false;
         currentClip = menuClip;
@@ -38,17 +43,17 @@ public class AudioManager : MonoBehaviour
     {
         if (fadeIn && musicSource.volume < 1)
         {
-            musicSource.volume += Time.deltaTime / fadeTime;
-            if (musicSource.volume >= 1)
+            musicSource.volume += musicVol * Time.deltaTime / fadeTime;
+            if (musicSource.volume >= musicVol)
             {
-                musicSource.volume = 1;
+                musicSource.volume = musicVol;
                 fadeIn = false;
             }
         }
 
         if (fadeOut && musicSource.volume > 0)
         {
-            musicSource.volume -= Time.deltaTime / fadeTime;
+            musicSource.volume -= musicVol * Time.deltaTime / fadeTime;
             if (musicSource.volume <= 0)
             {
                 musicSource.volume = 0;
