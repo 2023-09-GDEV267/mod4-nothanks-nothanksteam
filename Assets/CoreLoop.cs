@@ -78,10 +78,10 @@ public class CoreLoop : MonoBehaviour
         }
 
         // Generating HashSet of non-repeating random numbers within range 
-        for (int i = 0; i < (int)Mathf.Round(Random.Range(3f, 15f)); i++)
+        for (int i = 0; i < Random.Range(3, 15); i++)
         {
 
-            randomSet.Add((int)Mathf.Round(Random.Range(3f, 35f)));
+            randomSet.Add(Random.Range(3, 35));
         }
         
         // Creating a set of random cards
@@ -106,7 +106,7 @@ public class CoreLoop : MonoBehaviour
 
         targetCard = new Card();
         targetCard.markers = 0;
-        targetCard.value = (int)Mathf.Round(Random.Range(3f,35f));
+        targetCard.value = Random.Range(3,35);
 
 
         players[0] = new Player();
@@ -245,7 +245,7 @@ public class CoreLoop : MonoBehaviour
 
             targetCard = new Card();
             targetCard.markers = 0;
-            targetCard.value = (int)Mathf.Round(Random.Range(3f, 35f));
+            targetCard.value = Random.Range(3, 35);
             if (currentPlayerIndex >= maxPlayers - 1) { currentPlayerIndex = 0; }
             else { currentPlayerIndex++; }
             currentPlayer = players[currentPlayerIndex];
