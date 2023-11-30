@@ -10,7 +10,7 @@ public enum PlayerState
 }
 
 [System.Serializable]
-public class Player
+public class Player_AM
 {
     [Header("Set in inspector")]
 

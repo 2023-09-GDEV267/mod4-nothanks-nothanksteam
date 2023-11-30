@@ -1,16 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public enum PlayerType
+public enum PlayerType_KF
 {
     Human,
     Bot
 }
-public enum BotPlayLevel
+public enum BotPlayLevel_KF
 {
     low,medium,hard
 }
-public class Player
+public class Player_KF
 {
     public int playerID;
     public string playerName;
