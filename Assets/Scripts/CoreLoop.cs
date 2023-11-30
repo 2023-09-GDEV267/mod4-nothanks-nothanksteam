@@ -13,7 +13,7 @@ public class CoreLoop : MonoBehaviour
     [Header("Set in Inspector")]
     public Player playerPrefab;
     public Card cardPrefab;
-    public List<Card> deck;
+    public Deck deck;
 
     [Header("Set Dynamically")]
     public int currentPlayerIndex;
@@ -25,10 +25,13 @@ public class CoreLoop : MonoBehaviour
     public int maxPlayers;
     Player[] players = new Player[4];
 
-
-    // Start is called before the first frame update
     void Start()
     {
+        // Assigning values to each card in the deck, Assuming cards in list are in correct order. 
+        for (int i = 0, j = 3; i < deck.cards.Count; i++, j++)
+        {
+            deck.cards[i].value = j;
+        }
 /*        // Fixed list for testing score calculation
         List<int> testList = new List<int> { 32, 29, 35, 21, 20, 22, 15 };
         List<Card> testCards = new List<Card>();
