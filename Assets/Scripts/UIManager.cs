@@ -5,12 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-   public void StartGame()
+   public void OptionsButton()
+    {
+        SceneManager.LoadScene("Options");
+    }
+    public void PlayerSelectButton()
+    {
+        SceneManager.LoadScene("PlayerSelect");
+    }
+    public void MainMenuButton()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+    public void FourPButton()
     {
         SceneManager.LoadScene("CoreLoop");
-    }
-    public void PlayerSelect()
-    {
-        SceneManager.LoadScene("SelectPlayers");
     }
 }
