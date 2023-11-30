@@ -24,20 +24,13 @@ public enum BotPlayLevel
     easy, medium, hard
 }
 
-public class Card
-{
-    public int value;
-    public int markers; 
-}
-
-public class Deck
-{ }
-
 
 public class CoreLoop : MonoBehaviour
 {
     [Header("Set in Inspector")]
     public Player playerPrefab;
+    public Card cardPrefab;
+    public List<Card> deck;
 
     [Header("Set Dynamically")]
     public int currentPlayerIndex;
@@ -45,7 +38,7 @@ public class CoreLoop : MonoBehaviour
     public int roundPlayerIndex;
     public Player roundPlayer;
     public Card targetCard;
-    public Deck deck;
+    /*public Deck deck;*/
     public int maxPlayers;
     Player[] players = new Player[4];
 
@@ -96,7 +89,7 @@ public class CoreLoop : MonoBehaviour
         
         maxPlayers = 4;
 
-        targetCard = new Card();
+        targetCard = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         targetCard.markers = 0;
         targetCard.value = Random.Range(3,35);
 
@@ -256,7 +249,7 @@ public class CoreLoop : MonoBehaviour
         targetCard.markers = 0;
         Debug.Log($"{currentPlayer.playerName} has taken the {targetCard.value} card!");
 
-        targetCard = new Card();
+        targetCard = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity); ;
         targetCard.markers = 0;
         targetCard.value = Random.Range(3, 35);
         if (currentPlayerIndex >= maxPlayers - 1) { currentPlayerIndex = 0; }

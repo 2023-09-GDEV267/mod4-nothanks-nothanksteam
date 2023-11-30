@@ -229,10 +229,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 4406202415597138705, guid: 6e5c780d1038c5d4288906314bc0afaa, type: 3}
+  cardPrefab: {fileID: 5067501204337289377, guid: 57eb904908ccf004090155c10783381c, type: 3}
+  deck: []
   currentPlayerIndex: 0
   currentPlayer: {fileID: 0}
   roundPlayerIndex: 0
   roundPlayer: {fileID: 0}
+  targetCard: {fileID: 0}
   maxPlayers: 0
 --- !u!1 &2046670899
 GameObject:
