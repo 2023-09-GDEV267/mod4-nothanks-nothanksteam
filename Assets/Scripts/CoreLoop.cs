@@ -11,9 +11,17 @@ public enum PlayerType
     Human,
     Bot
 }
+
+public enum PlayerState
+{
+    idle,
+    decision,
+    acting
+}
+
 public enum BotPlayLevel
 {
-    easy,medium, hard
+    easy, medium, hard
 }
 
 public class Card
@@ -26,6 +34,7 @@ public class Deck
 { }
 
 
+
 public class Player
 {
     public int playerID;
@@ -34,6 +43,8 @@ public class Player
     public PlayerType type;
     public int markers;
     public List<Card> cards = new List<Card>();
+    public PlayerState state;
+
     public void AddMarkers(int quantity)
     {
         markers += quantity;
@@ -52,6 +63,8 @@ public class CoreLoop : MonoBehaviour
 {
     public int currentPlayerIndex;
     public Player currentPlayer;
+    public int roundPlayerIndex;
+    public Player roundPlayer;
     public Card targetCard;
     public Deck deck;
     public int maxPlayers;
@@ -218,50 +231,74 @@ public class CoreLoop : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.X))
         {
-            // Player refuses to take the card
-            if (currentPlayer.markers < 1)
-            {
-                Debug.Log($"{currentPlayer.playerName} is out of markers!");
-            }
-            else
-            {
-                Debug.Log($"{currentPlayer.playerName} says NO THANKS!");
-                targetCard.markers += 1;
-                currentPlayer.RemoveMarker();
-                if (currentPlayerIndex >= maxPlayers - 1) { currentPlayerIndex = 0; }
-                else { currentPlayerIndex++; }
-                currentPlayer = players[currentPlayerIndex];
-                PrintGameState();
-            }
+            NoThanks();
         }
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            // Player accepts the card
-            currentPlayer.AddMarkers(targetCard.markers);
-            currentPlayer.TakeCard(targetCard);
-            targetCard.markers = 0;
-            Debug.Log($"{currentPlayer.playerName} has taken the {targetCard.value} card!");
-
-            targetCard = new Card();
-            targetCard.markers = 0;
-            targetCard.value = Random.Range(3, 35);
-            if (currentPlayerIndex >= maxPlayers - 1) { currentPlayerIndex = 0; }
-            else { currentPlayerIndex++; }
-            currentPlayer = players[currentPlayerIndex];
-
-            PrintGameState();
+            TakeCard();
         }
 
-        if (Input.GetKeyDown(KeyCode.N))
+        //if (Input.GetKeyDown(KeyCode.N))
+        //{
+        //    // Pass turn test
+        //    if (currentPlayerIndex >= maxPlayers - 1) { currentPlayerIndex = 0; }
+        //    else { currentPlayerIndex++; }
+        //    currentPlayer = players[currentPlayerIndex];
+
+        //    PrintGameState();
+        //}
+    }
+
+    public void NoThanks()
+    {
+        // Player refuses to take the card
+        if (currentPlayer.markers < 1)
         {
-            // Pass turn test
+            Debug.Log($"{currentPlayer.playerName} is out of markers!");
+        }
+        else
+        {
+            Debug.Log($"{currentPlayer.playerName} says NO THANKS!");
+            targetCard.markers += 1;
+            currentPlayer.RemoveMarker();
             if (currentPlayerIndex >= maxPlayers - 1) { currentPlayerIndex = 0; }
             else { currentPlayerIndex++; }
             currentPlayer = players[currentPlayerIndex];
-
             PrintGameState();
         }
+    }
+
+    public void TakeCard()
+    {
+        // Player accepts the card
+        currentPlayer.AddMarkers(targetCard.markers);
+        currentPlayer.TakeCard(targetCard);
+        targetCard.markers = 0;
+        Debug.Log($"{currentPlayer.playerName} has taken the {targetCard.value} card!");
+
+        targetCard = new Card();
+        targetCard.markers = 0;
+        targetCard.value = Random.Range(3, 35);
+        if (currentPlayerIndex >= maxPlayers - 1) { currentPlayerIndex = 0; }
+        else { currentPlayerIndex++; }
+        currentPlayer = players[currentPlayerIndex];
+
+        PrintGameState();
+
+        NewRound();
+    }
+
+    public void NewRound()
+    {
+        //check if deck is empty
+        //if empty, go to scoring
+
+        if (roundPlayerIndex >= maxPlayers - 1) { roundPlayerIndex = 0; }
+        else { roundPlayerIndex++; }
+        roundPlayer = players[roundPlayerIndex];
+        currentPlayerIndex = roundPlayerIndex;
+        currentPlayer = players[currentPlayerIndex];
     }
 
     void PrintGameState()
