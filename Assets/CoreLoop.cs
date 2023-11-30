@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum PlayerType
@@ -56,12 +57,38 @@ public class CoreLoop : MonoBehaviour
     public int maxPlayers;
     Player[] players = new Player[4];
 
-    public List<int> testList;
+
     // Start is called before the first frame update
     void Start()
     {
-        testList = new List<int> { 32, 29, 35, 21, 20, 22, 15 };
-        CalculateScore(testList);
+        List<int> testList = new List<int> { 32, 29, 35, 21, 20, 22, 15 };
+        List<Card> testCards = new List<Card>();
+        List<Card> randomCards = new List<Card>(); 
+        HashSet<int> randomSet = new HashSet<int>();
+        foreach (int value in testList)
+        {
+            Card newCard = new Card();
+            newCard.value = value;
+            testCards.Add(newCard);
+        }
+
+        for (int i = 0; i < (int)Mathf.Round(Random.Range(3f, 15f)); i++)
+        {
+            randomSet.Add((int)Mathf.Round(Random.Range(3f, 35f)));
+        }
+        
+        foreach(int value in randomSet)
+        {
+            Card newCard = new Card();
+            newCard.value = value;
+            randomCards.Add(newCard);
+        }
+        Debug.Log("Testing scoring on fixed cards");
+        CalculateScore(testCards,0);
+
+        Debug.Log("Testing Scoring on random cards");
+        CalculateScore(randomCards, 0);
+
 
         currentPlayerIndex = 0;
         
@@ -101,7 +128,7 @@ public class CoreLoop : MonoBehaviour
         PrintGameState();
     }
 
-    public void CalculateScore(List<int> cardValues)
+    public void OldCalculateScore(List<int> cardValues)
     {
         cardValues.Sort();
         List<List<int>> streaks= new List<List<int>>();
@@ -128,6 +155,46 @@ public class CoreLoop : MonoBehaviour
             }
             Debug.Log(line);
         }
+    }
+    public void CalculateScore(List<Card> cards, int counters)
+    {
+        Debug.Log("We've successfully called this function");
+        
+        List<Card> sortedCards = cards.OrderBy(card => card.value).ToList();
+        List<List<Card>> streaks = new List<List<Card>>();
+        List<Card> currentStreak = new List<Card> { sortedCards[0] };
+
+        for (int i = 1; i < sortedCards.Count; i++)
+        {
+            if (sortedCards[i].value == currentStreak.Select(card=>card.value).ToList().Max() + 1)
+            {
+                currentStreak.Add(sortedCards[i]);
+            }
+            else
+            {
+                streaks.Add(currentStreak);
+                currentStreak = new List<Card> { sortedCards[i] };
+            }
+        }
+
+        int totalScore = 0;
+        foreach (List<Card> streak in streaks)
+        {
+            totalScore += streak.Select(card => card.value).ToList().Min();
+        }
+        totalScore -= counters;
+
+        foreach (List<Card> streak in streaks)
+        {
+            string line = "";
+            foreach (Card card in streak)
+            {
+                line += $"{card.value} ";
+            }
+            Debug.Log(line);
+        }
+        Debug.Log($"The total score was {totalScore}");
+
     }
 
     // Update is called once per frame
