@@ -1,18 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
     [Header("Music")]
+    public Slider musicSlider;
     public AudioClip menuClip;
     public AudioClip gameClip;
     public AudioClip scoringClip;
     public float fadeTime;
 
     [Header("SFX")]
+    public Slider sfxSlider;
     public AudioClip cardFlip;
     public AudioClip tokenClink;
+    public AudioClip correctSound;
+    public AudioClip errorSound;
     public float randomPitchMin;
     public float randomPitchMax;
 
@@ -23,24 +28,32 @@ public class AudioManager : MonoBehaviour
     private bool fadeOut;
     private float musicVol;
     private float sfxVol;
+    private Toggle musicMute;
+    private Toggle sfxMute;
 
     void Awake()
     {
-        musicVol = PlayerPrefs.GetFloat("musicVolume");
-        sfxVol = PlayerPrefs.GetFloat("SoundEffectsVolume");
+        if (!PlayerPrefs.HasKey("musicVolume"))
+        {
+            PlayerPrefs.SetFloat("musicVolume", 1);
+        }
+        if (!PlayerPrefs.HasKey("sfxVolume"))
+        {
+            PlayerPrefs.SetFloat("sfxVolume", 1);
+        }
+        musicSlider.value = musicVol = PlayerPrefs.GetFloat("musicVolume");
+        sfxSlider.value = sfxVol = PlayerPrefs.GetFloat("sfxVolume");
         musicSource = gameObject.transform.Find("MusicManager").gameObject.GetComponent<AudioSource>();
         musicSource.volume = 0f;
         musicSource.clip = menuClip;
         sfxSource = gameObject.transform.Find("SFXManager").gameObject.GetComponent<AudioSource>();
         sfxSource.volume = sfxVol;
+        musicMute = GameObject.Find("MuteMusic").GetComponent<Toggle>();
+        sfxMute = GameObject.Find("MuteSFX").GetComponent<Toggle>();
         fadeIn = true;
         fadeOut = false;
         currentClip = menuClip;
         musicSource.Play();
-
-        //remove once player prefs are set
-        musicVol = 1;
-        sfxVol = 1;
     }
 
     void Update()
@@ -68,6 +81,32 @@ public class AudioManager : MonoBehaviour
                 fadeIn = true;
             }
         }
+
+        musicVol = PlayerPrefs.GetFloat("musicVolume");
+        sfxVol = PlayerPrefs.GetFloat("sfxVolume");
+    }
+
+    public void ChangeVolume()
+    {
+        musicSource.volume = musicVol = musicSlider.value;
+        sfxSource.volume = sfxVol = sfxSlider.value;
+        
+        PlayerPrefs.SetFloat("musicVolume", musicVol);
+        PlayerPrefs.SetFloat("sfxVolume", sfxVol);
+    }
+
+    public void MuteMusic()
+    {
+        musicSource.gameObject.SetActive(!musicMute.isOn);
+        if (musicSource.gameObject.activeSelf)
+        {
+            musicSource.Play();
+        }
+    }
+
+    public void MuteSFX()
+    {
+        sfxSource.gameObject.SetActive(!sfxMute.isOn);
     }
 
     public void MenuMusic()
@@ -116,5 +155,15 @@ public class AudioManager : MonoBehaviour
         {
             Invoke("PlaceToken", i);
         }
+    }
+
+    public void CorrectSound()
+    {
+        sfxSource.PlayOneShot(correctSound);
+    }
+
+    public void ErrorSound()
+    {
+        sfxSource.PlayOneShot(errorSound);
     }
 }
