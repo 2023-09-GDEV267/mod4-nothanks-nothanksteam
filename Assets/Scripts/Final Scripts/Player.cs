@@ -2,6 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PlayerType
+{
+    Human,
+    Bot
+}
+
+public enum PlayerState
+{
+    idle,
+    decision,
+    acting
+}
+
+public enum BotPlayLevel
+{
+    easy, medium, hard
+}
 public class Player : MonoBehaviour
 {
     public int playerID;

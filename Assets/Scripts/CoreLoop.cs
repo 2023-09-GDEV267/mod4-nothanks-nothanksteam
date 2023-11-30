@@ -6,23 +6,7 @@ using Unity.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public enum PlayerType
-{
-    Human,
-    Bot
-}
 
-public enum PlayerState
-{
-    idle,
-    decision,
-    acting
-}
-
-public enum BotPlayLevel
-{
-    easy, medium, hard
-}
 
 
 public class CoreLoop : MonoBehaviour
