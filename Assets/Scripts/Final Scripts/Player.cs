@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,6 +28,7 @@ public class Player : MonoBehaviour
     public PlayerType type;
     public int markers;
     public List<Card> cards = new List<Card>();
+    public List<List<Card>> streaks = new List<List<Card>>();
     public PlayerState state;
 
     public void AddMarkers(int quantity)
@@ -42,16 +44,6 @@ public class Player : MonoBehaviour
     public void TakeCard(Card card)
     {
         cards.Add(card);
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        streaks = CoreLoop.SortStreaks(cards);
     }
 }

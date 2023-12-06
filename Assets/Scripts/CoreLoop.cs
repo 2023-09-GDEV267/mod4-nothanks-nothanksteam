@@ -140,7 +140,7 @@ public class CoreLoop : MonoBehaviour
         }
     }
 
-    public List<List<Card>> SortStreaks(List<Card> cards)
+    public static List<List<Card>> SortStreaks(List<Card> cards)
     {
         List<Card> sortedCards = cards.OrderBy(card => card.value).ToList();
         List<List<Card>> streaks = new List<List<Card>>();
@@ -161,7 +161,7 @@ public class CoreLoop : MonoBehaviour
         return streaks;
     }
 
-    public int CalculateScore(List<Card> cards, int counters)
+    public static int CalculateScore(List<Card> cards, int counters)
     {
 
         List<List<Card>> streaks = SortStreaks(cards);
@@ -268,10 +268,16 @@ public class CoreLoop : MonoBehaviour
     void PrintGameState()
     {
         string heldCards = "";
-        foreach (Card card in currentPlayer.cards)
+        foreach (var streak in currentPlayer.streaks)
         {
-            heldCards += $"{card.value} ";
+
+            foreach (Card card in streak)
+            {
+                heldCards += $"{card.value} ";
+            }
+            heldCards += "|";
         }
+
         Debug.Log($"Current player is now: {currentPlayer.playerName}. They have the following cards: [{heldCards}]. They have {currentPlayer.markers} markers. The current target card is the {targetCard.value} card and has {targetCard.markers} markers on it.");
     }
 }
