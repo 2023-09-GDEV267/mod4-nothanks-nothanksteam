@@ -1392,12 +1392,13 @@ MonoBehaviour:
   scoringClip: {fileID: 8300000, guid: 0eb89934bd50173459aaaf15bc85d044, type: 3}
   fadeTime: 2
   sfxSlider: {fileID: 1724551185}
-  cardFlip: {fileID: 0}
-  tokenClink: {fileID: 0}
+  cardFlip: {fileID: 8300000, guid: 0caa9bf03b0ca0b42ad9378e83eaa109, type: 3}
+  cardShuffle: {fileID: 8300000, guid: c029880f5efbeb6489dacc3badae04e6, type: 3}
+  tokenClink: {fileID: 8300000, guid: 7c84f2c2f9a89f34fb7c1b4aee77f8cf, type: 3}
   correctSound: {fileID: 8300000, guid: 2b31f4a11cc6af9448f912b16e79a258, type: 3}
   errorSound: {fileID: 8300000, guid: ae8e11032a0814947aac079fa8a5c083, type: 3}
-  randomPitchMin: 0.5
-  randomPitchMax: 1.5
+  randomPitchMin: 1
+  randomPitchMax: 2
 --- !u!1 &573359735
 GameObject:
   m_ObjectHideFlags: 0

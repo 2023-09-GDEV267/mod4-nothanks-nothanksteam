@@ -15,6 +15,7 @@ public class AudioManager : MonoBehaviour
     [Header("SFX")]
     public Slider sfxSlider;
     public AudioClip cardFlip;
+    public AudioClip cardShuffle;
     public AudioClip tokenClink;
     public AudioClip correctSound;
     public AudioClip errorSound;
@@ -129,29 +130,28 @@ public class AudioManager : MonoBehaviour
 
     public void FlipCardSound()
     {
+        sfxSource.pitch = 1f;
         sfxSource.pitch = Random.Range(randomPitchMin, randomPitchMax);
         sfxSource.PlayOneShot(cardFlip);
-        sfxSource.pitch = 1f;
     }
 
     public void ShuffleSound()
     {
-        for (float i = 0; i < 1; i += 0.02f)
-        {
-            Invoke("FlipCardSound", i);
-        }
+        sfxSource.pitch = 1f;
+        sfxSource.pitch = Random.Range(randomPitchMin, randomPitchMax);
+        sfxSource.PlayOneShot(cardShuffle);
     }
 
     public void PlaceToken()
     {
+        sfxSource.pitch = 1f;
         sfxSource.pitch = Random.Range(randomPitchMin, randomPitchMax);
         sfxSource.PlayOneShot(tokenClink);
-        sfxSource.pitch = 1f;
     }
 
     public void CollectTokensSound(int numOfTokens)
     {
-        for (float i = 0; i < (numOfTokens * 0.05); i += 0.05f)
+        for (float i = 0; i < (numOfTokens * 0.1); i += 0.1f)
         {
             Invoke("PlaceToken", i);
         }
@@ -159,11 +159,13 @@ public class AudioManager : MonoBehaviour
 
     public void CorrectSound()
     {
+        sfxSource.pitch = 1f;
         sfxSource.PlayOneShot(correctSound);
     }
 
     public void ErrorSound()
     {
+        sfxSource.pitch = 1f;
         sfxSource.PlayOneShot(errorSound);
     }
 }
