@@ -8,10 +8,10 @@ public class Deck : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        foreach (Card card in cards)
+/*        foreach (Card card in cards)
         {
             Debug.Log(card);
-        }        
+        }        */
     }
 
     // Update is called once per frame
