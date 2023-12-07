@@ -276,10 +276,7 @@ public class CoreLoop : MonoBehaviour
 
         targetCard.transform.position = new Vector3(currentPlayer.cardAnchor.transform.position.x + currentPlayer.cards.Count - 1, currentPlayer.cardAnchor.transform.position.y, 0);
         targetCard.transform.localScale = new Vector3(.5f, .5f, 1);
-        currentPlayer = players[currentPlayerIndex];
-
         targetCard.transform.position = currentPlayer.cardAnchor.transform.position;
-
 
         PrintGameState();
 
@@ -290,11 +287,11 @@ public class CoreLoop : MonoBehaviour
     {
         //check if deck is empty
         //if empty, go to scoring
-        if (deck.cards.Count <= 0)
-        {
-            Invoke("FinalScoring", 3);
-        }
-        else
+        //if (deck.cards.Count <= 0)
+        //{
+        //    Invoke("FinalScoring", 3);
+        //}
+        //else
         {
             targetCard = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             targetCard.markers = 0;

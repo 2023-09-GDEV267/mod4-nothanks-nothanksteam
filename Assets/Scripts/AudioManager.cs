@@ -47,19 +47,19 @@ public class AudioManager : MonoBehaviour
         {
             PlayerPrefs.SetFloat("sfxVolume", 1);
         }
-        musicSlider.value = musicVol = PlayerPrefs.GetFloat("musicVolume");
-        sfxSlider.value = sfxVol = PlayerPrefs.GetFloat("sfxVolume");
         musicSource = gameObject.transform.Find("MusicManager").gameObject.GetComponent<AudioSource>();
         musicSource.volume = 0f;
         musicSource.clip = menuClip;
         sfxSource = gameObject.transform.Find("SFXManager").gameObject.GetComponent<AudioSource>();
         sfxSource.volume = sfxVol;
-        musicMute = GameObject.Find("MuteMusic").GetComponent<Toggle>();
-        sfxMute = GameObject.Find("MuteSFX").GetComponent<Toggle>();
         fadeIn = true;
         fadeOut = false;
         currentClip = menuClip;
         musicSource.Play();
+        musicMute = GameObject.Find("MuteMusic").GetComponent<Toggle>();
+        sfxMute = GameObject.Find("MuteSFX").GetComponent<Toggle>();
+        musicSlider.value = musicVol = PlayerPrefs.GetFloat("musicVolume");
+        sfxSlider.value = sfxVol = PlayerPrefs.GetFloat("sfxVolume");
     }
 
     void Update()
