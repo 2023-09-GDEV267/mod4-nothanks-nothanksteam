@@ -7,6 +7,7 @@ using Unity.Collections.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
+using TMPro;
 
 public class CoreLoop : MonoBehaviour
 {
@@ -109,8 +110,8 @@ public class CoreLoop : MonoBehaviour
         }
         foreach (Player p in players)
         {
-            
             p.markers = 11;
+            p.gameObject.transform.parent.Find("Canvas").Find("Name").GetComponent<TMP_Text>().text = p.playerName;
         }
         currentPlayer = players[currentPlayerIndex];
         PrintGameState();
@@ -312,10 +313,13 @@ public class CoreLoop : MonoBehaviour
 
     public void FinalScoring()
     {
+        AudioManager.S.ScoringMusic();
+
         foreach (Player player in players)
         {
             player.score = CalculateScore(player.cards, player.markers);
-
+            player.gameObject.transform.parent.Find("Canvas").Find("Score").gameObject.SetActive(true);
+            player.gameObject.transform.parent.Find("Canvas").Find("Score").GetComponent<TMP_Text>().text = $"{player.score}";
         }
     }
 
