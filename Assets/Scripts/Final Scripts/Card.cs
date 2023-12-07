@@ -6,4 +6,5 @@ public class Card : MonoBehaviour
 {
     public int value;
     public int markers;
+    public bool isFaceUp = false;
 }

@@ -13,25 +13,21 @@ public class CoreLoop : MonoBehaviour
     [Header("Set in Inspector")]
     public Player playerPrefab;
     public Card cardPrefab;
-    public Deck deck;
 
     [Header("Set Dynamically")]
     public int currentPlayerIndex;
     public Player currentPlayer;
     public int roundPlayerIndex;
     public Player roundPlayer;
+    public Deck deck;
     public Card targetCard;
-    /*public Deck deck;*/
     public int maxPlayers;
     Player[] players = new Player[4];
 
     void Start()
     {
-        // Assigning values to each card in the deck, Assuming cards in list are in correct order. 
-        for (int i = 0, j = 3; i < deck.cards.Count; i++, j++)
-        {
-            deck.cards[i].value = j;
-        }
+        deck = GetComponent<Deck>();    
+
 /*        // Fixed list for testing score calculation
         List<int> testList = new List<int> { 32, 29, 35, 21, 20, 22, 15 };
         List<Card> testCards = new List<Card>();
@@ -80,28 +76,32 @@ public class CoreLoop : MonoBehaviour
         targetCard.value = Random.Range(3,35);
 
 
-        players[0] = Instantiate(playerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        players[0] = Instantiate(playerPrefab, new Vector3(0, -10, 0), Quaternion.identity);
         players[0].playerName = "Slorpo";
         players[0].playerID = 1;
         players[0].playerColor = Color.blue;
+        players[0].type = PlayerType.Human;
 
 
-        players[1] = Instantiate(playerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        players[1] = Instantiate(playerPrefab, new Vector3(-10, 0, 0), Quaternion.identity);
         players[1].playerName = "Krumbo";
         players[1].playerID = 2;
         players[1].playerColor = Color.red;
+        players[1].type = PlayerType.Bot;
 
-        players[2] = Instantiate(playerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        players[2] = Instantiate(playerPrefab, new Vector3(0, 10, 0), Quaternion.identity);
         players[2].playerName = "Glumpus";
         players[2].playerID = 3;
         players[2].playerColor = Color.yellow;
+        players[2].type = PlayerType.Bot;
 
-        players[3] = Instantiate(playerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        players[3] = Instantiate(playerPrefab, new Vector3(10, 0, 0), Quaternion.identity);
         players[3].playerName = "Jeff";
         players[3].playerID = 4;
         players[3].playerColor = Color.green;
+        players[3].type = PlayerType.Bot;
 
-        foreach(Player p in players)
+        foreach (Player p in players)
         {
             p.markers = 11;
         }
