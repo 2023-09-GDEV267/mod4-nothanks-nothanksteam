@@ -253,6 +253,11 @@ public class CoreLoop : MonoBehaviour
             else { currentPlayerIndex++; }
             currentPlayer = players[currentPlayerIndex];
             PrintGameState();
+
+            if (currentPlayer.type == PlayerType.Bot)
+            {
+                Invoke("BotChoice", 3);
+            }
         }
     }
 
