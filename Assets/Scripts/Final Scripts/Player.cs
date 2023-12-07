@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
     public List<List<Card>> streaks = new List<List<Card>>();
     public PlayerState state;
     public GameObject cardAnchor;
+    public int score;
 
     public void AddMarkers(int quantity)
     {

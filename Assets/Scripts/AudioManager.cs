@@ -22,6 +22,9 @@ public class AudioManager : MonoBehaviour
     public float randomPitchMin;
     public float randomPitchMax;
 
+    [Header("Set dynamically")]
+    public static AudioManager S;
+
     private AudioSource sfxSource;
     private AudioSource musicSource;
     private AudioClip currentClip;
@@ -34,6 +37,8 @@ public class AudioManager : MonoBehaviour
 
     void Awake()
     {
+        if (S == null) { S = this; }
+
         if (!PlayerPrefs.HasKey("musicVolume"))
         {
             PlayerPrefs.SetFloat("musicVolume", 1);
