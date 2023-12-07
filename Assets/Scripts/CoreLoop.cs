@@ -268,7 +268,8 @@ public class CoreLoop : MonoBehaviour
         currentPlayer.ReceiveCard(targetCard);
         targetCard.markers = 0;
         Debug.Log($"{currentPlayer.playerName} has taken the {targetCard.value} card!");
-        targetCard.transform.position = currentPlayer.cardAnchor.transform.position;
+        targetCard.transform.position = new Vector3(currentPlayer.cardAnchor.transform.position.x + currentPlayer.cards.Count - 1, currentPlayer.cardAnchor.transform.position.y, 0);
+        targetCard.transform.localScale = new Vector3(.5f, .5f, 1);
         targetCard = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity); ;
         targetCard.markers = 0;
         targetCard.value = Random.Range(3, 35);
