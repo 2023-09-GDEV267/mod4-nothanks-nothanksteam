@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   value: 0
   markers: 0
+  isFaceUp: 0
 --- !u!1001 &7967734994128318338
 PrefabInstance:
   m_ObjectHideFlags: 0

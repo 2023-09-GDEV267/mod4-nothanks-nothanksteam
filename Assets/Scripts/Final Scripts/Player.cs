@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
     public List<Card> cards = new List<Card>();
     public List<List<Card>> streaks = new List<List<Card>>();
     public PlayerState state;
+    public GameObject cardAnchor;
 
     public void AddMarkers(int quantity)
     {
@@ -41,7 +42,7 @@ public class Player : MonoBehaviour
         if (markers > 0) markers--;
         Debug.Log($"{playerName} spent a marker. They have {markers} markers left.");
     }
-    public void TakeCard(Card card)
+    public void ReceiveCard(Card card)
     {
         cards.Add(card);
         streaks = CoreLoop.SortStreaks(cards);

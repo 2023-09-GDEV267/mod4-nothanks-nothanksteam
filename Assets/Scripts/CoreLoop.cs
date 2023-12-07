@@ -23,6 +23,7 @@ public class CoreLoop : MonoBehaviour
     public Card targetCard;
     public int maxPlayers;
     Player[] players = new Player[4];
+    public List<GameObject> playerAnchors;
 
     void Start()
     {
@@ -101,8 +102,14 @@ public class CoreLoop : MonoBehaviour
         players[3].playerColor = Color.green;
         players[3].type = PlayerType.Bot;
 
+        for (int i = 0; i < players.Length; i++)
+        {
+            players[i].transform.parent = playerAnchors[i].transform; 
+            players[i].transform.localPosition = Vector3.zero;
+        }
         foreach (Player p in players)
         {
+            
             p.markers = 11;
         }
         currentPlayer = players[currentPlayerIndex];
@@ -163,7 +170,6 @@ public class CoreLoop : MonoBehaviour
 
     public static int CalculateScore(List<Card> cards, int counters)
     {
-
         List<List<Card>> streaks = SortStreaks(cards);
         int totalScore = 0;
         foreach (List<Card> streak in streaks)
@@ -171,7 +177,6 @@ public class CoreLoop : MonoBehaviour
             totalScore += streak.Select(card => card.value).ToList().Min();
         }
         totalScore -= counters;
-
 
         // Printing the score and streaks for now. 
         // TODO separate methods for sorting streaks and calculating score
@@ -187,7 +192,6 @@ public class CoreLoop : MonoBehaviour
         }
         Debug.Log($"The total score was {totalScore}");
         return totalScore;
-
     }
 
     // Update is called once per frame
@@ -256,10 +260,10 @@ public class CoreLoop : MonoBehaviour
     {
         // Player accepts the card
         currentPlayer.AddMarkers(targetCard.markers);
-        currentPlayer.TakeCard(targetCard);
+        currentPlayer.ReceiveCard(targetCard);
         targetCard.markers = 0;
         Debug.Log($"{currentPlayer.playerName} has taken the {targetCard.value} card!");
-
+        targetCard.transform.position = currentPlayer.cardAnchor.transform.position;
         targetCard = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity); ;
         targetCard.markers = 0;
         targetCard.value = Random.Range(3, 35);
@@ -294,7 +298,6 @@ public class CoreLoop : MonoBehaviour
         string heldCards = "";
         foreach (var streak in currentPlayer.streaks)
         {
-
             foreach (Card card in streak)
             {
                 heldCards += $"{card.value} ";
