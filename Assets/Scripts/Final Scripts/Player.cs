@@ -46,4 +46,8 @@ public class Player : MonoBehaviour
         cards.Add(card);
         streaks = CoreLoop.SortStreaks(cards);
     }
+    public void DisplayCards()
+    {
+
+    }
 }

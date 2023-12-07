@@ -51,7 +51,7 @@ public class Deck : MonoBehaviour
     
     public void InitializeCards()
     {
-        Debug.Log("We made it here");
+        
         foreach (GameObject card in cardsPrefabs)
         {
             GameObject cardGameObject = Instantiate(card);

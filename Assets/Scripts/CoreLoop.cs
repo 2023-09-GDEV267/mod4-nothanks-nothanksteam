@@ -193,7 +193,7 @@ public class CoreLoop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X))
+/*        if (Input.GetKeyDown(KeyCode.X))
         {
             NoThanks();
         }
@@ -201,7 +201,7 @@ public class CoreLoop : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z))
         {
             TakeCard();
-        }
+        }*/
 
         //if (Input.GetKeyDown(KeyCode.N))
         //{
