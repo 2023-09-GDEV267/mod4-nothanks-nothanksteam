@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/PlayerSelect.unity
     guid: 0783af60440c2184bbd5d462313da56b
   - enabled: 1
-    path: Assets/Scenes/Options.unity
+    path: Assets/Scenes/Options_old.unity
     guid: 9d160efa358d29d4b84c511e6bbee9d6
   - enabled: 1
     path: Assets/Scenes/CoreLoop.unity
