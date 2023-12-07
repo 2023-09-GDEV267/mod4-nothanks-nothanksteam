@@ -567,6 +567,8 @@ GameObject:
   - component: {fileID: 485310777}
   - component: {fileID: 485310776}
   - component: {fileID: 485310775}
+  - component: {fileID: 485310779}
+  - component: {fileID: 485310778}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -649,6 +651,80 @@ Transform:
   - {fileID: 572613575}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &485310778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485310774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 339673335e4d83343a1f6bba95b3e060, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deckAnchor: {fileID: 256759202}
+  cardsPrefabs:
+  - {fileID: 7052468909369464578, guid: 9d69c113987d4f84f9e875551f224838, type: 3}
+  - {fileID: 508693205420953674, guid: 873767df977c59d46a7113b58446ad10, type: 3}
+  - {fileID: 1622502307743300301, guid: 6f2d1be8be9b76f41a714022a12fbca8, type: 3}
+  - {fileID: 3251230515818749916, guid: 8cbfdd022c96e0840b050003605cffef, type: 3}
+  - {fileID: 3847556141306044590, guid: 9547006c7c826c44383ab5acf7b0a14e, type: 3}
+  - {fileID: 6588672498809111014, guid: 5db7165799cda534f9bce6b3a5eab306, type: 3}
+  - {fileID: 4816323166289768897, guid: 7a55e6f5c65d79a4e9530e6f092760d0, type: 3}
+  - {fileID: 5025949776913599693, guid: 4aa128c8f27b833408044437a2a72a3f, type: 3}
+  - {fileID: 5875473769774195898, guid: 1010c2414dc9aad42a34e45726d2bd84, type: 3}
+  - {fileID: 8371932255344933239, guid: 4c72e8c655bed5847bb1add136b2bc36, type: 3}
+  - {fileID: 417776856551664040, guid: 0ebb33dacf06a9640a178092a6b49be3, type: 3}
+  - {fileID: 5063229528568816237, guid: db7e6615933a8a04cb3617ea93da4a83, type: 3}
+  - {fileID: 1626715119559208597, guid: af43a2e6bcd2d82478b1a304194bb70b, type: 3}
+  - {fileID: 5562629337322250016, guid: 8218f64a2d3c6a2489a99fe4b09c0323, type: 3}
+  - {fileID: 111752626401653058, guid: 368fd820882ec724e8077a05a82ff564, type: 3}
+  - {fileID: 4682478714899463818, guid: faeac1470fd43a14c9f189bcd2ec0899, type: 3}
+  - {fileID: 2953635285962803761, guid: f35c1bc0817f07a4593ceb9576128a87, type: 3}
+  - {fileID: 5209675952695118310, guid: 66842e276e791b142a4d7daa76b324b1, type: 3}
+  - {fileID: 4322689478882628865, guid: 4efb0008eebcfff418a04e492b934b1f, type: 3}
+  - {fileID: 3197490910364256650, guid: 6f9de9a08bd585144a806d5e140305b7, type: 3}
+  - {fileID: 7220784344190550610, guid: 33b9fba88c4b5a64f99c9ecb0fb1f2f9, type: 3}
+  - {fileID: 6894265989744513221, guid: 0de2edc70865c814baf77b962488bd79, type: 3}
+  - {fileID: 2457561794395118474, guid: de7a301e3ebf6bb458816e3fa4afdd42, type: 3}
+  - {fileID: 7275237192762426098, guid: be51ebd10551d6e4eb1d8dce32577c25, type: 3}
+  - {fileID: 4328777516903011178, guid: e168e192ff0ddc64eb5303c350ca8b8e, type: 3}
+  - {fileID: 8685548077504667674, guid: 7e990ba290dd9cb42aea913f63743c58, type: 3}
+  - {fileID: 6111672351999846813, guid: ad3c14d799a0f5541ad996d89e78f218, type: 3}
+  - {fileID: 8417092009045757737, guid: 924d608ca8d5fb94e9c327aa03ff57c0, type: 3}
+  - {fileID: 3303665051184679260, guid: 8a3efa89a7b534f4e8cda867b825a364, type: 3}
+  - {fileID: 7868693984424672900, guid: b48fa3e29545c2041a2793df0549cff4, type: 3}
+  - {fileID: 7762213144203686417, guid: 43308850d3d57af478bf08e09f545c35, type: 3}
+  - {fileID: 5947804060956636008, guid: db122d1e091507642972112ebe1f397a, type: 3}
+  - {fileID: 5583699314131921647, guid: 7be7e83af6699e243bb22b8d581e62c8, type: 3}
+  cards: []
+--- !u!114 &485310779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485310774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ccd2f3c012d83749a0b111c660c7ba3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 4406202415597138705, guid: 6e5c780d1038c5d4288906314bc0afaa, type: 3}
+  cardPrefab: {fileID: 5067501204337289377, guid: 57eb904908ccf004090155c10783381c, type: 3}
+  currentPlayerIndex: 0
+  currentPlayer: {fileID: 0}
+  roundPlayerIndex: 0
+  roundPlayer: {fileID: 0}
+  deck: {fileID: 0}
+  targetCard: {fileID: 0}
+  maxPlayers: 0
+  playerAnchors:
+  - {fileID: 1978288426}
+  - {fileID: 360362232}
+  - {fileID: 1420701875}
+  - {fileID: 1926128999}
 --- !u!1 &572613574
 GameObject:
   m_ObjectHideFlags: 0
@@ -665,7 +741,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &572613575
 Transform:
   m_ObjectHideFlags: 0

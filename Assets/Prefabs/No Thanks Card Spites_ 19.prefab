@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7933015640945058057}
   - component: {fileID: 192797580149068239}
+  - component: {fileID: 222484645958993994}
   m_Layer: 0
   m_Name: No Thanks Card Spites_ 19
   m_TagString: Untagged
@@ -169,3 +170,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &222484645958993994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2953635285962803761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2cc5b13b7fa7b640987102dd9b28836, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
+  value: 19
+  markers: 0
+  isFaceUp: 0
