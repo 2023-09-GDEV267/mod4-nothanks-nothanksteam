@@ -214,12 +214,31 @@ public class CoreLoop : MonoBehaviour
         //}
     }
 
+    public void BotChoice()
+    {
+        float takeChance = (2.5f * targetCard.value) - (3 * targetCard.markers);
+
+        if (Random.Range(0, 100) > takeChance)
+        {
+            TakeCard();
+        }
+        else
+        {
+            NoThanks();
+        }
+    }
+
     public void NoThanks()
     {
         // Player refuses to take the card
         if (currentPlayer.markers < 1)
         {
             Debug.Log($"{currentPlayer.playerName} is out of markers!");
+
+            if (currentPlayer.type == PlayerType.Bot)
+            {
+                Invoke("TakeCard", 3);
+            }
         }
         else
         {
@@ -263,6 +282,11 @@ public class CoreLoop : MonoBehaviour
         roundPlayer = players[roundPlayerIndex];
         currentPlayerIndex = roundPlayerIndex;
         currentPlayer = players[currentPlayerIndex];
+
+        if (currentPlayer.type == PlayerType.Bot)
+        {
+            Invoke("BotChoice", 3);
+        }
     }
 
     void PrintGameState()
