@@ -12,6 +12,8 @@ public class Deck : MonoBehaviour
     void Start()
     {
         InitializeCards();
+        Shuffle(ref cards);
+        BurnCards();
         // Assigning values to each card in the deck, Assuming cards in list are in correct order. 
 
         /*        foreach (Card card in cards)
@@ -44,9 +46,14 @@ public class Deck : MonoBehaviour
 
     }
 
+    public void BurnCards()
+    {
+        cards.RemoveRange(0, 9);
+    }
+
     public void Draw()
     {
-        
+
     }
     
     public void InitializeCards()
@@ -65,5 +72,6 @@ public class Deck : MonoBehaviour
         {
             cards[i].value = j;
         }
+        
     }
 }
