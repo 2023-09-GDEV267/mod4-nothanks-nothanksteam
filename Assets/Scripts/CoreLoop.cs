@@ -18,6 +18,7 @@ public class CoreLoop : MonoBehaviour
     public List<GameObject> playerUI;
     public string playerName;
     public List<string> botNames;
+    public float roundSpeed = 2;
 
     [Header("Set Dynamically")]
     public int currentPlayerIndex;
@@ -77,7 +78,9 @@ public class CoreLoop : MonoBehaviour
         
         maxPlayers = 4;
 
-        targetCard = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        targetCard = deck.Draw();
+        targetCard.transform.position = Vector3.zero;
+
         targetCard.markers = 0;
         targetCard.value = Random.Range(3,35);
 
@@ -219,11 +222,10 @@ public class CoreLoop : MonoBehaviour
     {
         float takeChance = (2.5f * targetCard.value) - (3 * targetCard.markers);
 
-        if (Random.Range(0, 100) > takeChance)
+        if (Random.Range(0, 100) > takeChance || currentPlayer.markers < 1)
         {
             TakeCard();
         }
-        else
         {
             NoThanks();
         }
@@ -240,7 +242,7 @@ public class CoreLoop : MonoBehaviour
 
             if (currentPlayer.type == PlayerType.Bot)
             {
-                Invoke("TakeCard", 3);
+                Invoke("TakeCard", roundSpeed);
             }
         }
         else
@@ -251,13 +253,22 @@ public class CoreLoop : MonoBehaviour
             if (currentPlayerIndex >= maxPlayers - 1) { currentPlayerIndex = 0; }
             else { currentPlayerIndex++; }
             currentPlayer = players[currentPlayerIndex];
-            PrintGameState();
 
             AudioManager.S.PlaceToken();
 
             if (currentPlayer.type == PlayerType.Bot)
             {
+                foreach (GameObject element in playerUI)
+                {
+                    element.SetActive(false);
+                }
                 Invoke("BotChoice", 3);
+            } else
+            {
+                foreach (GameObject element in playerUI)
+                {
+                    element.SetActive(true);
+                }
             }
         }
     }
@@ -272,7 +283,7 @@ public class CoreLoop : MonoBehaviour
         Debug.Log($"{currentPlayer.playerName} has taken the {targetCard.value} card!");
 
         targetCard.transform.position = new Vector3(currentPlayer.cardAnchor.transform.position.x + currentPlayer.cards.Count - 1, currentPlayer.cardAnchor.transform.position.y, 0);
-        targetCard.transform.localScale = new Vector3(.5f, .5f, 1);
+        targetCard.transform.localScale = new Vector3(.5f, -.5f, 1);
         targetCard.transform.position = currentPlayer.cardAnchor.transform.position;
 
         PrintGameState();
@@ -290,31 +301,46 @@ public class CoreLoop : MonoBehaviour
         //}
         //else
         {
-            targetCard = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            targetCard.markers = 0;
-            targetCard.value = Random.Range(3, 35);
-            if (roundPlayerIndex >= maxPlayers - 1) { roundPlayerIndex = 0; }
-            else { roundPlayerIndex++; }
-            roundPlayer = players[roundPlayerIndex];
-            currentPlayerIndex = roundPlayerIndex;
-            currentPlayer = players[currentPlayerIndex];
-            AudioManager.S.FlipCardSound();
-
-
-            if (currentPlayer.type == PlayerType.Bot)
+            /*            targetCard = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity);*/
+            /*deck.Draw();*/
+            // Attempt to draw a card
+            targetCard = deck.Draw();
+            if (targetCard == null)
             {
-                foreach (GameObject element in playerUI)
-                {
-                    element.SetActive(false);
-                }
-                Invoke("BotChoice", 3);
-            } else
-            {
-                foreach (GameObject element in playerUI)
-                {
-                    element.SetActive(false);
-                }
+                // Begin final scoring
+                Debug.Log("The deck is out of cards. Time for final scoring");
             }
+            else
+            {
+                targetCard.transform.position = Vector3.zero;
+                targetCard.markers = 0;
+                targetCard.value = Random.Range(3, 35);
+                if (roundPlayerIndex >= maxPlayers - 1) { roundPlayerIndex = 0; }
+                else { roundPlayerIndex++; }
+                roundPlayer = players[roundPlayerIndex];
+                currentPlayerIndex = roundPlayerIndex;
+                currentPlayer = players[currentPlayerIndex];
+                AudioManager.S.FlipCardSound();
+                if (currentPlayer.type == PlayerType.Bot)
+                {
+                    foreach (GameObject element in playerUI)
+                    {
+                        element.SetActive(false);
+                    }
+                    Invoke("BotChoice", roundSpeed);
+                }
+                else
+                {
+                    foreach (GameObject element in playerUI)
+                    {
+                        element.SetActive(false);
+                    }
+                }
+
+            }
+
+
+
         }
     }
 
