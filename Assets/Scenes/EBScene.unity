@@ -1090,16 +1090,24 @@ MonoBehaviour:
   - {fileID: 360362232}
   - {fileID: 1420701875}
   - {fileID: 1926128999}
-  maxPlayers: 0
   playerUI:
   - {fileID: 1561528614}
   - {fileID: 585235191}
+  playerName: Player(You)
+  botNames:
+  - Slorpo
+  - Krumbo
+  - Glumpus
+  - Jeff
+  - Cash Touchdown
+  - Bobson Dugnut
   currentPlayerIndex: 0
   currentPlayer: {fileID: 0}
   roundPlayerIndex: 0
   roundPlayer: {fileID: 0}
   deck: {fileID: 0}
   targetCard: {fileID: 0}
+  maxPlayers: 0
 --- !u!1 &515406875
 GameObject:
   m_ObjectHideFlags: 0
