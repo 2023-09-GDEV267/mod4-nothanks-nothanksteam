@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1085,18 +1085,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 4406202415597138705, guid: 6e5c780d1038c5d4288906314bc0afaa, type: 3}
   cardPrefab: {fileID: 5067501204337289377, guid: 57eb904908ccf004090155c10783381c, type: 3}
+  playerAnchors:
+  - {fileID: 1978288426}
+  - {fileID: 360362232}
+  - {fileID: 1420701875}
+  - {fileID: 1926128999}
+  maxPlayers: 0
+  playerUI:
+  - {fileID: 1561528614}
+  - {fileID: 585235191}
   currentPlayerIndex: 0
   currentPlayer: {fileID: 0}
   roundPlayerIndex: 0
   roundPlayer: {fileID: 0}
   deck: {fileID: 0}
   targetCard: {fileID: 0}
-  maxPlayers: 0
-  playerAnchors:
-  - {fileID: 1978288426}
-  - {fileID: 360362232}
-  - {fileID: 1420701875}
-  - {fileID: 1926128999}
 --- !u!1 &515406875
 GameObject:
   m_ObjectHideFlags: 0
