@@ -14,9 +14,6 @@ public class CoreLoop : MonoBehaviour
     [Header("Set in Inspector")]
     public Player playerPrefab;
     public Card cardPrefab;
-    public List<GameObject> playerAnchors;
-    public int maxPlayers;
-    public List<GameObject> playerUI;
 
     [Header("Set Dynamically")]
     public int currentPlayerIndex;
@@ -25,8 +22,9 @@ public class CoreLoop : MonoBehaviour
     public Player roundPlayer;
     public Deck deck;
     public Card targetCard;
+    public int maxPlayers;
     Player[] players = new Player[4];
-
+    public List<GameObject> playerAnchors;
 
     void Start()
     {
@@ -306,20 +304,9 @@ public class CoreLoop : MonoBehaviour
             currentPlayer = players[currentPlayerIndex];
             AudioManager.S.FlipCardSound();
 
-
             if (currentPlayer.type == PlayerType.Bot)
             {
-                foreach (GameObject element in playerUI)
-                {
-                    element.SetActive(false);
-                }
                 Invoke("BotChoice", 3);
-            } else
-            {
-                foreach (GameObject element in playerUI)
-                {
-                    element.SetActive(false);
-                }
             }
         }
     }
