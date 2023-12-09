@@ -51,9 +51,12 @@ public class Deck : MonoBehaviour
         cards.RemoveRange(0, 9);
     }
 
-    public void Draw()
+    public Card Draw()
     {
-
+        if(cards.Count < 1) return null;
+        Card drawnCard = cards[0];
+        cards.RemoveAt(0);
+        return drawnCard;
     }
     
     public void InitializeCards()

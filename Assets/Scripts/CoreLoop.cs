@@ -73,9 +73,8 @@ public class CoreLoop : MonoBehaviour
         
         maxPlayers = 4;
 
-        targetCard = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-        targetCard.markers = 0;
-        targetCard.value = Random.Range(3,35);
+        targetCard = deck.Draw();
+        targetCard.transform.position = Vector3.zero;
 
 
         players[0] = Instantiate(playerPrefab, new Vector3(0, -10, 0), Quaternion.identity);
@@ -198,25 +197,6 @@ public class CoreLoop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-/*        if (Input.GetKeyDown(KeyCode.X))
-        {
-            NoThanks();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            TakeCard();
-        }*/
-
-        //if (Input.GetKeyDown(KeyCode.N))
-        //{
-        //    // Pass turn test
-        //    if (currentPlayerIndex >= maxPlayers - 1) { currentPlayerIndex = 0; }
-        //    else { currentPlayerIndex++; }
-        //    currentPlayer = players[currentPlayerIndex];
-
-        //    PrintGameState();
-        //}
     }
 
     public void BotChoice()
@@ -294,9 +274,8 @@ public class CoreLoop : MonoBehaviour
         //}
         //else
         {
-            targetCard = Instantiate(cardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            targetCard.markers = 0;
-            targetCard.value = Random.Range(3, 35);
+            targetCard = deck.Draw();
+            targetCard.transform.position = Vector3.zero;
             if (roundPlayerIndex >= maxPlayers - 1) { roundPlayerIndex = 0; }
             else { roundPlayerIndex++; }
             roundPlayer = players[roundPlayerIndex];
