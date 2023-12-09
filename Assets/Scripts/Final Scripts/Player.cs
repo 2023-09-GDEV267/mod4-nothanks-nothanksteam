@@ -46,6 +46,9 @@ public class Player : MonoBehaviour
     public void ReceiveCard(Card card)
     {
         cards.Add(card);
+        card.transform.SetParent(cardAnchor.transform);
+        card.transform.localPosition = new Vector3(0 + cards.Count - 1, 0, 0);
+        card.transform.localScale = new Vector3(.5f, -.5f, 1);
         streaks = CoreLoop.SortStreaks(cards);
     }
     public void DisplayCards()

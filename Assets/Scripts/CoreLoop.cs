@@ -14,6 +14,7 @@ public class CoreLoop : MonoBehaviour
     [Header("Set in Inspector")]
     public Player playerPrefab;
     public Card cardPrefab;
+    public List<GameObject> playerAnchors;
 
     [Header("Set Dynamically")]
     public int currentPlayerIndex;
@@ -24,7 +25,7 @@ public class CoreLoop : MonoBehaviour
     public Card targetCard;
     public int maxPlayers;
     Player[] players = new Player[4];
-    public List<GameObject> playerAnchors;
+
 
     void Start()
     {
@@ -79,7 +80,7 @@ public class CoreLoop : MonoBehaviour
 
 
         players[0] = Instantiate(playerPrefab, new Vector3(0, -10, 0), Quaternion.identity);
-        players[0].playerName = "Slorpo";
+        players[0].playerName = "Human Player";
         players[0].playerID = 1;
         players[0].playerColor = Color.blue;
         players[0].type = PlayerType.Human;
@@ -257,9 +258,7 @@ public class CoreLoop : MonoBehaviour
         targetCard.markers = 0;
         Debug.Log($"{currentPlayer.playerName} has taken the {targetCard.value} card!");
 
-        targetCard.transform.position = new Vector3(currentPlayer.cardAnchor.transform.position.x + currentPlayer.cards.Count - 1, currentPlayer.cardAnchor.transform.position.y, 0);
-        targetCard.transform.localScale = new Vector3(.5f, -.5f, 1);
-        targetCard.transform.position = currentPlayer.cardAnchor.transform.position;
+
 
         NewRound();
     }

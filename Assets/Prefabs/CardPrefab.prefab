@@ -45,9 +45,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2cc5b13b7fa7b640987102dd9b28836, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 4
+  state: 0
   value: 0
   markers: 0
   isFaceUp: 0
+  targetPos: {x: 0, y: 0, z: 0}
 --- !u!1001 &7967734994128318338
 PrefabInstance:
   m_ObjectHideFlags: 0
