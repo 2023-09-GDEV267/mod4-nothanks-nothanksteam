@@ -15,6 +15,9 @@ public class CoreLoop : MonoBehaviour
     public Player playerPrefab;
     public Card cardPrefab;
     public List<GameObject> playerAnchors;
+    public Transform markersAnchor;
+    public GameObject markerPrefab;
+    public float markerSpriteScatter = .75f;
 
     [Header("Set Dynamically")]
     public int currentPlayerIndex;
@@ -170,6 +173,26 @@ public class CoreLoop : MonoBehaviour
         return streaks;
     }
 
+    public void UpdateTargetCardMarkersDisplayed()
+    {
+        if (targetCard.markers < 1)
+        {
+            foreach (Transform child in markersAnchor.transform)
+            {
+                Destroy(child.gameObject);
+            }
+        } 
+        else
+        {
+            for (int i = 0; i < targetCard.markers - markersAnchor.transform.childCount; i++)
+            {
+                GameObject markerSprite = Instantiate(markerPrefab, markersAnchor);
+                markerSprite.transform.localPosition = new Vector3(Random.Range(-markerSpriteScatter,markerSpriteScatter), Random.Range(-markerSpriteScatter, markerSpriteScatter), 0);
+            }
+        }
+
+    }
+
     public static int CalculateScore(List<Card> cards, int counters)
     {
         List<List<Card>> streaks = SortStreaks(cards);
@@ -233,6 +256,7 @@ public class CoreLoop : MonoBehaviour
         {
             Debug.Log($"{currentPlayer.playerName} says NO THANKS!");
             targetCard.markers += 1;
+            UpdateTargetCardMarkersDisplayed();
             currentPlayer.RemoveMarker();
             if (currentPlayerIndex >= maxPlayers - 1) { currentPlayerIndex = 0; }
             else { currentPlayerIndex++; }
@@ -275,6 +299,7 @@ public class CoreLoop : MonoBehaviour
         {
             Debug.Log("New Round!");
             targetCard = deck.Draw();
+            UpdateTargetCardMarkersDisplayed();
             targetCard.transform.position = Vector3.zero;
             targetCard.transform.localScale = new Vector3(1,-1,1);
             if (roundPlayerIndex >= maxPlayers - 1) { roundPlayerIndex = 0; }
