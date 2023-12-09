@@ -115,10 +115,20 @@ public class CoreLoop : MonoBehaviour
         foreach (Player p in players)
         {
             p.markers = 11;
+            p.UpdateHeldMarkersDisplay();
             p.gameObject.transform.parent.Find("Canvas").Find("Name").GetComponent<TMP_Text>().text = p.playerName;
         }
         currentPlayer = players[currentPlayerIndex];
+        UpdateUIDisplay();
         PrintGameState();
+    }
+
+    public void UpdateUIDisplay()
+    {
+        foreach (Player p in players)
+        {
+            p.gameObject.transform.parent.Find("Canvas").Find("Markers").GetComponent<TMP_Text>().text = $"X{p.markers}";
+        }
     }
 
     // Old method for calculating score from when I was working with a list of ints
@@ -270,20 +280,16 @@ public class CoreLoop : MonoBehaviour
                 Invoke("BotChoice", 3);
             }
         }
-
+        UpdateUIDisplay();
     }
 
     public void TakeCard()
     {
         // Player accepts the card
-        currentPlayer.AddMarkers(targetCard.markers);
         currentPlayer.ReceiveCard(targetCard);
         AudioManager.S.CollectTokensSound(targetCard.markers);
-        targetCard.markers = 0;
         Debug.Log($"{currentPlayer.playerName} has taken the {targetCard.value} card!");
-
-
-
+        UpdateUIDisplay();
         NewRound();
     }
 
