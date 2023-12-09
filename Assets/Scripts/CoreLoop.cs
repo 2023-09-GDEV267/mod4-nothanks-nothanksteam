@@ -75,6 +75,7 @@ public class CoreLoop : MonoBehaviour
 
         targetCard = deck.Draw();
         targetCard.transform.position = Vector3.zero;
+        targetCard.transform.localScale = new Vector3(1,-1,1);
 
 
         players[0] = Instantiate(playerPrefab, new Vector3(0, -10, 0), Quaternion.identity);
@@ -244,6 +245,7 @@ public class CoreLoop : MonoBehaviour
                 Invoke("BotChoice", 3);
             }
         }
+
     }
 
     public void TakeCard()
@@ -256,10 +258,8 @@ public class CoreLoop : MonoBehaviour
         Debug.Log($"{currentPlayer.playerName} has taken the {targetCard.value} card!");
 
         targetCard.transform.position = new Vector3(currentPlayer.cardAnchor.transform.position.x + currentPlayer.cards.Count - 1, currentPlayer.cardAnchor.transform.position.y, 0);
-        targetCard.transform.localScale = new Vector3(.5f, .5f, 1);
+        targetCard.transform.localScale = new Vector3(.5f, -.5f, 1);
         targetCard.transform.position = currentPlayer.cardAnchor.transform.position;
-
-        PrintGameState();
 
         NewRound();
     }
@@ -274,15 +274,17 @@ public class CoreLoop : MonoBehaviour
         //}
         //else
         {
+            Debug.Log("New Round!");
             targetCard = deck.Draw();
             targetCard.transform.position = Vector3.zero;
+            targetCard.transform.localScale = new Vector3(1,-1,1);
             if (roundPlayerIndex >= maxPlayers - 1) { roundPlayerIndex = 0; }
             else { roundPlayerIndex++; }
             roundPlayer = players[roundPlayerIndex];
             currentPlayerIndex = roundPlayerIndex;
             currentPlayer = players[currentPlayerIndex];
             AudioManager.S.FlipCardSound();
-
+            PrintGameState();
             if (currentPlayer.type == PlayerType.Bot)
             {
                 Invoke("BotChoice", 3);
