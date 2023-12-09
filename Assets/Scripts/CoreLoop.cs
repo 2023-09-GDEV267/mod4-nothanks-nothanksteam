@@ -15,9 +15,8 @@ public class CoreLoop : MonoBehaviour
     public Player playerPrefab;
     public Card cardPrefab;
     public List<GameObject> playerAnchors;
+    public int maxPlayers;
     public List<GameObject> playerUI;
-    public string playerName;
-    public List<string> botNames;
 
     [Header("Set Dynamically")]
     public int currentPlayerIndex;
@@ -26,7 +25,6 @@ public class CoreLoop : MonoBehaviour
     public Player roundPlayer;
     public Deck deck;
     public Card targetCard;
-    public int maxPlayers;
     Player[] players = new Player[4];
 
 
@@ -83,21 +81,29 @@ public class CoreLoop : MonoBehaviour
 
 
         players[0] = Instantiate(playerPrefab, new Vector3(0, -10, 0), Quaternion.identity);
-        players[0].playerName = playerName;
+        players[0].playerName = "Slorpo";
         players[0].playerID = 1;
         players[0].playerColor = Color.blue;
         players[0].type = PlayerType.Human;
 
-        for (int i = 1; i < players.Length; i++)
-        {
-            int randomNameIndex = Random.Range(0, botNames.Count);
-            players[i] = Instantiate(playerPrefab, new Vector3(-10, 0, 0), Quaternion.identity);
-            players[i].playerName = botNames[randomNameIndex];
-            botNames.RemoveAt(randomNameIndex); //Preventing duplicate bot names
-            players[i].playerID = i + 1;
-/*            players[i].playerColor = Color.red;*/
-            players[i].type = PlayerType.Bot;
-        }
+
+        players[1] = Instantiate(playerPrefab, new Vector3(-10, 0, 0), Quaternion.identity);
+        players[1].playerName = "Krumbo";
+        players[1].playerID = 2;
+        players[1].playerColor = Color.red;
+        players[1].type = PlayerType.Bot;
+
+        players[2] = Instantiate(playerPrefab, new Vector3(0, 10, 0), Quaternion.identity);
+        players[2].playerName = "Glumpus";
+        players[2].playerID = 3;
+        players[2].playerColor = Color.yellow;
+        players[2].type = PlayerType.Bot;
+
+        players[3] = Instantiate(playerPrefab, new Vector3(10, 0, 0), Quaternion.identity);
+        players[3].playerName = "Jeff";
+        players[3].playerID = 4;
+        players[3].playerColor = Color.green;
+        players[3].type = PlayerType.Bot;
 
         for (int i = 0; i < players.Length; i++)
         {
