@@ -14,6 +14,12 @@ public class Deck : MonoBehaviour
         InitializeCards();
         Shuffle(ref cards);
         BurnCards();
+        // Assigning values to each card in the deck, Assuming cards in list are in correct order. 
+
+        /*        foreach (Card card in cards)
+                {
+                    Debug.Log(card);
+                }        */
     }
 
 
@@ -36,6 +42,8 @@ public class Deck : MonoBehaviour
 
         //because oCards is a ref parameter, the changes made are propogated back
         //for ref paramters changes made in the function persist.
+
+
     }
 
     public void BurnCards()
@@ -43,15 +51,9 @@ public class Deck : MonoBehaviour
         cards.RemoveRange(0, 9);
     }
 
-    public Card Draw()
+    public void Draw()
     {
-        if (cards.Count == 0) {
-            return null;
-        }
-        Card drawnCard = cards[0];
-/*        gameObject.GetComponent<CoreLoop>().targetCard = cards[0];*/
-        cards.RemoveAt(0);
-        return drawnCard;
+
     }
     
     public void InitializeCards()
@@ -62,7 +64,6 @@ public class Deck : MonoBehaviour
             GameObject cardGameObject = Instantiate(card);
             cardGameObject.transform.parent = deckAnchor;
             cardGameObject.transform.localPosition = Vector3.zero;
-            cardGameObject.transform.localScale = new Vector3(1,-1,1);
             Card newCard = cardGameObject.GetComponent<Card>();
             cards.Add(newCard);
         }

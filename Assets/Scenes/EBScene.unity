@@ -1100,8 +1100,7 @@ MonoBehaviour:
   - Glumpus
   - Jeff
   - Cash Touchdown
-  - Bobson Dugnutt
-  roundSpeed: 0.5
+  - Bobson Dugnut
   currentPlayerIndex: 0
   currentPlayer: {fileID: 0}
   roundPlayerIndex: 0
