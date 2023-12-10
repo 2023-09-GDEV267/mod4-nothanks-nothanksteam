@@ -26,6 +26,15 @@ public class Card : MonoBehaviour
     {
         targetPos = transform.position;
     }
+
+    public void SetVisible(bool isVisible)
+    {
+        gameObject.GetComponent<Renderer>().enabled = isVisible;
+        foreach (Transform spriteTransform in transform)
+        {
+            spriteTransform.gameObject.GetComponent<Renderer>().enabled = isVisible;
+        }
+    }
 /*    public void FixedUpdate()
     {
     
