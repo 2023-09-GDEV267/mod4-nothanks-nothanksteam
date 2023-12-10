@@ -20,6 +20,8 @@ public class CoreLoop : MonoBehaviour
     public float markerSpriteScatter = .75f; // Range in which markers placed on target card scatter from origin anchor
     public float roundSpeed = 1f; // Invoke delay on bot turns
     public List<GameObject> playerUI; // A list of UI elements to hide when it is not the human player's turn
+    public TextMeshProUGUI roundPlayerText;
+    public TextMeshProUGUI currentPlayerText;
 
     [Header("Set Dynamically")]
     public int currentPlayerIndex;
@@ -120,13 +122,16 @@ public class CoreLoop : MonoBehaviour
             p.UpdateHeldMarkersDisplay();
             p.gameObject.transform.parent.Find("Canvas").Find("Name").GetComponent<TMP_Text>().text = p.playerName;
         }
-        currentPlayer = players[currentPlayerIndex];
+        roundPlayer = players[currentPlayerIndex];
+        currentPlayer = roundPlayer;
         UpdateUIDisplay();
-        PrintGameState();
+/*        PrintGameState();*/
     }
 
     public void UpdateUIDisplay()
     {
+        currentPlayerText.text = $"Current Player: {currentPlayer.playerName}";
+        roundPlayerText.text = $"Round Player: {roundPlayer.playerName}";
         foreach(GameObject element in playerUI)
         {
             element.SetActive(currentPlayer.type == PlayerType.Human);
@@ -192,7 +197,7 @@ public class CoreLoop : MonoBehaviour
 
     public void UpdateTargetCardMarkersDisplayed()
     {
-        Debug.Log($"TargetCard: {targetCard}  Markers: {targetCard.markers}");
+/*        Debug.Log($"TargetCard: {targetCard}  Markers: {targetCard.markers}");*/
         if (targetCard.markers < 1)
         {
             if (markersAnchor.transform.childCount > 0)
@@ -265,7 +270,7 @@ public class CoreLoop : MonoBehaviour
         // Player refuses to take the card
         if (currentPlayer.markers < 1)
         {
-            Debug.Log($"{currentPlayer.playerName} is out of markers!");
+/*            Debug.Log($"{currentPlayer.playerName} is out of markers!");*/
 
             AudioManager.S.ErrorSound();
 
@@ -283,7 +288,7 @@ public class CoreLoop : MonoBehaviour
             if (currentPlayerIndex >= maxPlayers - 1) { currentPlayerIndex = 0; }
             else { currentPlayerIndex++; }
             currentPlayer = players[currentPlayerIndex];
-            PrintGameState();
+            /*PrintGameState();*/
 
             AudioManager.S.PlaceToken();
 
@@ -327,7 +332,7 @@ public class CoreLoop : MonoBehaviour
             currentPlayer = players[currentPlayerIndex];
             UpdateUIDisplay() ;
             AudioManager.S.FlipCardSound();
-            PrintGameState();
+/*            PrintGameState();*/
             if (currentPlayer.type == PlayerType.Bot)
             {
                 Invoke("BotChoice", roundSpeed);

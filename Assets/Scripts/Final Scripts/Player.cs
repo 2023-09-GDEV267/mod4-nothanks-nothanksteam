@@ -42,7 +42,7 @@ public class Player : MonoBehaviour
 
     public void UpdateHeldMarkersDisplay()
     {
-        Debug.Log($"{playerName} has {markers} markers!");
+        /*Debug.Log($"{playerName} has {markers} markers!");*/
         if (markers < 5)
         {
             lowMarkers.SetActive(true);
@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
     public void AddMarkers(int quantity)
     {
         markers += quantity;
-        Debug.Log($"Ding! {playerName} got {quantity} markers.");
+/*        Debug.Log($"Ding! {playerName} got {quantity} markers.");*/
         UpdateHeldMarkersDisplay();
     }
     public void RemoveMarker()
@@ -72,7 +72,7 @@ public class Player : MonoBehaviour
         if (markers > 0)
         {
             markers--;
-            Debug.Log($"{playerName} spent a marker. They have {markers} markers left.");
+/*            Debug.Log($"{playerName} spent a marker. They have {markers} markers left.");*/
         }
         else
         {
