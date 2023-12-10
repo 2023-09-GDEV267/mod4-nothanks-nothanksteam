@@ -17,8 +17,9 @@ public class CoreLoop : MonoBehaviour
     public List<GameObject> playerAnchors;
     public Transform markersAnchor;
     public GameObject markerPrefab;
-    public float markerSpriteScatter = .75f;
-    public float roundSpeed = 1f;
+    public float markerSpriteScatter = .75f; // Range in which markers placed on target card scatter from origin anchor
+    public float roundSpeed = 1f; // Invoke delay on bot turns
+    public List<GameObject> playerUI; // A list of UI elements to hide when it is not the human player's turn
 
     [Header("Set Dynamically")]
     public int currentPlayerIndex;
@@ -126,6 +127,10 @@ public class CoreLoop : MonoBehaviour
 
     public void UpdateUIDisplay()
     {
+        foreach(GameObject element in playerUI)
+        {
+            element.SetActive(currentPlayer.type == PlayerType.Human);
+        }
         foreach (Player p in players)
         {
             p.currentPlayerSpotlight.SetActive(p == currentPlayer);
