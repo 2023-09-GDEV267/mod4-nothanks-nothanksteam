@@ -127,6 +127,7 @@ public class CoreLoop : MonoBehaviour
     {
         foreach (Player p in players)
         {
+            p.currentPlayerSpotlight.SetActive(p == currentPlayer);
             p.gameObject.transform.parent.Find("Canvas").Find("Markers").GetComponent<TMP_Text>().text = $"X{p.markers}";
         }
     }
@@ -313,6 +314,7 @@ public class CoreLoop : MonoBehaviour
             roundPlayer = players[roundPlayerIndex];
             currentPlayerIndex = roundPlayerIndex;
             currentPlayer = players[currentPlayerIndex];
+            UpdateUIDisplay() ;
             AudioManager.S.FlipCardSound();
             PrintGameState();
             if (currentPlayer.type == PlayerType.Bot)

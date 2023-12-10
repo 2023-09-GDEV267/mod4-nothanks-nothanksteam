@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     public GameObject lowMarkers;
     public GameObject midMarkers;
     public GameObject highMarkers;
+    public GameObject currentPlayerSpotlight;
 
     [Header("Set Dynamically")]
     public int playerID;
