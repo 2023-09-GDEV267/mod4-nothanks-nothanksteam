@@ -17,7 +17,7 @@ public class Card : MonoBehaviour
     [Header("Set Dynamically")]
     public CardState state;
     public int value;
-    public int markers;
+    public int markers =0;
     public bool isFaceUp = false;
 
     public Vector3 targetPos;

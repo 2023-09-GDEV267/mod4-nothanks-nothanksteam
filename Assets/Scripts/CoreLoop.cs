@@ -18,6 +18,7 @@ public class CoreLoop : MonoBehaviour
     public Transform markersAnchor;
     public GameObject markerPrefab;
     public float markerSpriteScatter = .75f;
+    public float roundSpeed = 1f;
 
     [Header("Set Dynamically")]
     public int currentPlayerIndex;
@@ -186,12 +187,17 @@ public class CoreLoop : MonoBehaviour
 
     public void UpdateTargetCardMarkersDisplayed()
     {
+        Debug.Log($"TargetCard: {targetCard}  Markers: {targetCard.markers}");
         if (targetCard.markers < 1)
         {
-            foreach (Transform child in markersAnchor.transform)
+            if (markersAnchor.transform.childCount > 0)
             {
-                Destroy(child.gameObject);
+                foreach (Transform child in markersAnchor.transform)
+                {
+                    Destroy(child.gameObject);
+                }
             }
+
         } 
         else
         {
@@ -260,7 +266,7 @@ public class CoreLoop : MonoBehaviour
 
             if (currentPlayer.type == PlayerType.Bot)
             {
-                Invoke("TakeCard", 3);
+                Invoke("TakeCard", roundSpeed);
             }
         }
         else
@@ -278,7 +284,7 @@ public class CoreLoop : MonoBehaviour
 
             if (currentPlayer.type == PlayerType.Bot)
             {
-                Invoke("BotChoice", 3);
+                Invoke("BotChoice", roundSpeed);
             }
         }
         UpdateUIDisplay();
@@ -298,11 +304,11 @@ public class CoreLoop : MonoBehaviour
     {
         //check if deck is empty
         //if empty, go to scoring
-        //if (deck.cards.Count <= 0)
-        //{
-        //    Invoke("FinalScoring", 3);
-        //}
-        //else
+        if (deck.cards.Count <= 0)
+        {
+            Invoke("FinalScoring", roundSpeed);
+        }
+        else
         {
             Debug.Log("New Round!");
             targetCard = deck.Draw();
@@ -319,7 +325,7 @@ public class CoreLoop : MonoBehaviour
             PrintGameState();
             if (currentPlayer.type == PlayerType.Bot)
             {
-                Invoke("BotChoice", 3);
+                Invoke("BotChoice", roundSpeed);
             }
         }
     }

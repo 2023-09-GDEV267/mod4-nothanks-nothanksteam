@@ -69,11 +69,6 @@ public class Deck : MonoBehaviour
             Card newCard = cardGameObject.GetComponent<Card>();
             cards.Add(newCard);
         }
-
-        for (int i = 0, j = 3; i < cards.Count; i++, j++)
-        {
-            cards[i].value = j;
-        }
         
     }
 }
