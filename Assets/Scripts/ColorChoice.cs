@@ -15,7 +15,7 @@ public class ColorChoice : MonoBehaviour
     {
         if (playerOneText == null)
         {
-            playerOneText = GetComponent<Text>();
+            //playerOneText = GetComponent<Text>();
             playerOneText.color = Color.red;
             playerTwoText.color = Color.green;
             playerThreeText.color = Color.blue;
@@ -26,7 +26,7 @@ public class ColorChoice : MonoBehaviour
     // Start is called before the first frame update
     public void Red()
     {
-        playerOneText = gameObject.GetComponent<Text>();
+        //playerOneText = gameObject.GetComponent<Text>();
         playerOneText.color = Color.red;
         playerTwoText.color = Color.green;
         playerThreeText.color = Color.blue;
@@ -36,7 +36,7 @@ public class ColorChoice : MonoBehaviour
 
     public void Green()
     {
-        playerOneText = gameObject.GetComponent<Text>();
+        //playerOneText = gameObject.GetComponent<Text>();
         playerOneText.color = Color.green;
         playerTwoText.color = Color.red;
         playerThreeText.color = Color.blue;
@@ -46,7 +46,7 @@ public class ColorChoice : MonoBehaviour
 
     public void Blue()
     {
-        playerOneText = gameObject.GetComponent<Text>();
+        //playerOneText = gameObject.GetComponent<Text>();
         playerOneText.color = Color.blue;
         playerTwoText.color = Color.yellow;
         playerThreeText.color = Color.green;
@@ -56,7 +56,7 @@ public class ColorChoice : MonoBehaviour
 
     public void Yellow()
     {
-        playerOneText = gameObject.GetComponent<Text>();
+        //playerOneText = gameObject.GetComponent<Text>();
         playerOneText.color = Color.yellow;
         playerTwoText.color = Color.blue;
         playerThreeText.color = Color.red;
