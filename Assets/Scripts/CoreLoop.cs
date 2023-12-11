@@ -125,26 +125,12 @@ public class CoreLoop : MonoBehaviour
         roundPlayer = players[currentPlayerIndex];
         currentPlayer = roundPlayer;
         UpdateUIDisplay();
-/*        PrintGameState();*/
     }
 
-    public void UpdateUIDisplay()
-    {
-        currentPlayerText.text = $"Current Player: {currentPlayer.playerName}";
-        roundPlayerText.text = $"Round Player: {roundPlayer.playerName}";
-        foreach(GameObject element in playerUI)
-        {
-            element.SetActive(currentPlayer.type == PlayerType.Human);
-        }
-        foreach (Player p in players)
-        {
-            p.currentPlayerSpotlight.SetActive(p == currentPlayer);
-            p.gameObject.transform.parent.Find("Canvas").Find("Markers").GetComponent<TMP_Text>().text = $"X{p.markers}";
-        }
-    }
+
 
     // Old method for calculating score from when I was working with a list of ints
-    public void OldCalculateScore(List<int> cardValues)
+/*    public void OldCalculateScore(List<int> cardValues)
     {
         
         cardValues.Sort();
@@ -172,10 +158,16 @@ public class CoreLoop : MonoBehaviour
             }
             Debug.Log(line);
         }
-    }
+    }*/
 
     public static List<List<Card>> SortStreaks(List<Card> cards)
     {
+        if (cards == null || cards.Count < 1)
+        { return null; }
+        else if (cards.Count == 1)
+        {
+            return new List<List<Card>>() { new List<Card>() { cards[0] } };
+        }
         List<Card> sortedCards = cards.OrderBy(card => card.value).ToList();
         List<List<Card>> streaks = new List<List<Card>>();
         List<Card> currentStreak = new List<Card> { sortedCards[0] };
@@ -195,9 +187,54 @@ public class CoreLoop : MonoBehaviour
         return streaks;
     }
 
+    public static int CalculateScore(List<Card> cards, int counters)
+    {
+        List<List<Card>> streaks = new List<List<Card>>();
+        int totalScore = 0;
+        if (cards != null && cards.Count >= 1)
+        {
+            streaks = SortStreaks(cards);
+            if (streaks != null && streaks.Count > 0)
+            {
+                foreach (List<Card> streak in streaks)
+                {
+                    totalScore += streak.Select(card => card.value).ToList().Min();
+                }
+            }
+
+        }
+        totalScore -= counters;
+
+/*        foreach (List<Card> streak in streaks)
+        {
+            string line = "";
+            foreach (Card card in streak)
+            {
+                line += $"{card.value} ";
+            }
+            Debug.Log(line);
+        }
+        Debug.Log($"The total score was {totalScore}");*/
+        return totalScore;
+    }
+    public void UpdateUIDisplay()
+    {
+        currentPlayerText.text = $"Current Player: {currentPlayer.playerName}";
+        roundPlayerText.text = $"Round Player: {roundPlayer.playerName}";
+        foreach (GameObject element in playerUI)
+        {
+            element.SetActive(currentPlayer.type == PlayerType.Human);
+        }
+        foreach (Player p in players)
+        {
+            p.currentPlayerSpotlight.SetActive(p == currentPlayer);
+            p.gameObject.transform.parent.Find("Canvas").Find("Markers").GetComponent<TMP_Text>().text = $"X{p.markers}";
+        }
+    }
+
     public void UpdateTargetCardMarkersDisplayed()
     {
-/*        Debug.Log($"TargetCard: {targetCard}  Markers: {targetCard.markers}");*/
+        /*        Debug.Log($"TargetCard: {targetCard}  Markers: {targetCard.markers}");*/
         if (targetCard.markers < 1)
         {
             if (markersAnchor.transform.childCount > 0)
@@ -208,47 +245,16 @@ public class CoreLoop : MonoBehaviour
                 }
             }
 
-        } 
+        }
         else
         {
             for (int i = 0; i < targetCard.markers - markersAnchor.transform.childCount; i++)
             {
                 GameObject markerSprite = Instantiate(markerPrefab, markersAnchor);
-                markerSprite.transform.localPosition = new Vector3(Random.Range(-markerSpriteScatter,markerSpriteScatter), Random.Range(-markerSpriteScatter, markerSpriteScatter), 0);
+                markerSprite.transform.localPosition = new Vector3(Random.Range(-markerSpriteScatter, markerSpriteScatter), Random.Range(-markerSpriteScatter, markerSpriteScatter), 0);
             }
         }
 
-    }
-
-    public static int CalculateScore(List<Card> cards, int counters)
-    {
-        List<List<Card>> streaks = SortStreaks(cards);
-        int totalScore = 0;
-        foreach (List<Card> streak in streaks)
-        {
-            totalScore += streak.Select(card => card.value).ToList().Min();
-        }
-        totalScore -= counters;
-
-        // Printing the score and streaks for now. 
-        // TODO separate methods for sorting streaks and calculating score
-        // (So we can show streaks in a player's hand)
-        foreach (List<Card> streak in streaks)
-        {
-            string line = "";
-            foreach (Card card in streak)
-            {
-                line += $"{card.value} ";
-            }
-            Debug.Log(line);
-        }
-        Debug.Log($"The total score was {totalScore}");
-        return totalScore;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
     public void BotChoice()
@@ -343,13 +349,53 @@ public class CoreLoop : MonoBehaviour
     public void FinalScoring()
     {
         AudioManager.S.ScoringMusic();
-
+        // Calculate each player's score and display it in the UI
         foreach (Player player in players)
         {
             player.score = CalculateScore(player.cards, player.markers);
             player.gameObject.transform.parent.Find("Canvas").Find("Score").gameObject.SetActive(true);
-            player.gameObject.transform.parent.Find("Canvas").Find("Score").GetComponent<TMP_Text>().text = $"{player.score}";
+            player.gameObject.transform.parent.Find("Canvas").Find("Score").GetComponent<TMP_Text>().text = $" Score: {player.score}";
         }
+
+        // Determine the winner(Or winners, if there is a tie)
+        List<Player> winners = new List<Player>() { players[0] };
+        for (int i = 1; i < players.Length; i++)
+        {
+            Player scoringPlayer = players[i];
+            Player currentWinner = winners[0];
+                if ( scoringPlayer.score < currentWinner.score )
+                {
+                    winners = new List<Player> { scoringPlayer };
+                } else if (scoringPlayer.score == currentWinner.score)
+                {
+                    winners.Add(scoringPlayer);
+                }
+        }
+        string finalScoreString;
+        string nameString = "";
+        if (winners.Count > 1) 
+        {
+
+            foreach (Player player in winners) 
+            {
+                if (player == winners[winners.Count - 1])
+                {
+                    nameString += " and";
+                }
+                else if (player != winners[0])
+                {
+                    nameString += ",";
+                }
+                nameString += $" {player.playerName}"; 
+            }
+            finalScoreString = $"There was a tie! The winners are:{nameString}";
+        }
+        else
+        {
+            nameString = winners[0].playerName;
+            finalScoreString = $"The winner is {nameString}";
+        }
+        Debug.Log(finalScoreString);
     }
 
     void PrintGameState()

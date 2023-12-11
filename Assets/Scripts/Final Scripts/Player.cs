@@ -74,10 +74,6 @@ public class Player : MonoBehaviour
             markers--;
 /*            Debug.Log($"{playerName} spent a marker. They have {markers} markers left.");*/
         }
-        else
-        {
-            Debug.Log($"{playerName} is out of markers!");
-        }
         UpdateHeldMarkersDisplay();
     }
     public void ReceiveCard(Card card)
@@ -89,6 +85,19 @@ public class Player : MonoBehaviour
         card.transform.localPosition = new Vector3(0 + cards.Count - 1, 0, 0);
         card.transform.localScale = new Vector3(.5f, -.5f, 1);
         streaks = CoreLoop.SortStreaks(cards);
+        
+        // Printing streaks to help with checking scores
+        string str = $"{playerName} Streaks:\n";
+        streaks.ForEach(streak =>
+        {
+
+            foreach (Card c in streak)
+            {
+                str += c.value + " ";
+            }
+            str += "\n";
+        });
+        Debug.Log(str);
     }
     public void DisplayCards()
     {
