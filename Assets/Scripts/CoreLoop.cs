@@ -354,7 +354,8 @@ public class CoreLoop : MonoBehaviour
         {
             player.score = CalculateScore(player.cards, player.markers);
             player.gameObject.transform.parent.Find("Canvas").Find("Score").gameObject.SetActive(true);
-            player.gameObject.transform.parent.Find("Canvas").Find("Score").GetComponent<TMP_Text>().text = $" Score: {player.score}";
+
+            player.gameObject.transform.parent.Find("Canvas").Find("Score").GetComponent<TMP_Text>().text = $"Final Score: {player.score}";
         }
 
         // Determine the winner(Or winners, if there is a tie)
