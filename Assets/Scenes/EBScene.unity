@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -501,7 +501,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3, y: 1}
+  m_AnchoredPosition: {x: 6, y: 1}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &63616965
@@ -551,8 +551,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 1
-  m_fontSizeBase: 1
+  m_fontSize: 2
+  m_fontSizeBase: 2
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1208,6 +1208,8 @@ MonoBehaviour:
   - {fileID: 7762213144203686417, guid: 43308850d3d57af478bf08e09f545c35, type: 3}
   - {fileID: 5947804060956636008, guid: db122d1e091507642972112ebe1f397a, type: 3}
   - {fileID: 5583699314131921647, guid: 7be7e83af6699e243bb22b8d581e62c8, type: 3}
+  cardBackPrefab: {fileID: 426940924539958208, guid: 25abda9f48aa8654c808a5c629b1a648, type: 3}
+  cardBack: {fileID: 0}
   cards: []
 --- !u!114 &485310779
 MonoBehaviour:
@@ -2806,7 +2808,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3, y: 1}
+  m_AnchoredPosition: {x: 6, y: 1}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1596940540
@@ -2856,8 +2858,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 1
-  m_fontSizeBase: 1
+  m_fontSize: 2
+  m_fontSizeBase: 2
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3503,7 +3505,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3, y: 1}
+  m_AnchoredPosition: {x: 6, y: 1}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1811761723
@@ -3553,8 +3555,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 1
-  m_fontSizeBase: 1
+  m_fontSize: 2
+  m_fontSizeBase: 2
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3651,6 +3653,18 @@ PrefabInstance:
     - target: {fileID: 2179185255961790064, guid: 222ada296fcefff418a37bdd65b94b64, type: 3}
       propertyPath: m_Name
       value: Player 1 Anchor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2404315140112525054, guid: 222ada296fcefff418a37bdd65b94b64, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7989628705541609070, guid: 222ada296fcefff418a37bdd65b94b64, type: 3}
+      propertyPath: m_fontSize
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7989628705541609070, guid: 222ada296fcefff418a37bdd65b94b64, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9033717249996972323, guid: 222ada296fcefff418a37bdd65b94b64, type: 3}
       propertyPath: m_LocalPosition.x
