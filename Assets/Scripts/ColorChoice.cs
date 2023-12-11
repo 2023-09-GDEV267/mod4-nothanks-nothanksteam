@@ -31,6 +31,7 @@ public class ColorChoice : MonoBehaviour
         playerTwoText.color = Color.green;
         playerThreeText.color = Color.blue;
         playerFourText.color = Color.yellow;
+        Debug.Log("player color is red");
     }
 
     public void Green()
@@ -40,6 +41,7 @@ public class ColorChoice : MonoBehaviour
         playerTwoText.color = Color.red;
         playerThreeText.color = Color.blue;
         playerFourText.color = Color.yellow;
+        Debug.Log($"Green: {playerOneText.text}");
     }
 
     public void Blue()
@@ -49,6 +51,7 @@ public class ColorChoice : MonoBehaviour
         playerTwoText.color = Color.yellow;
         playerThreeText.color = Color.green;
         playerFourText.color = Color.red;
+        Debug.Log("player color is blue");
     }
 
     public void Yellow()
@@ -58,5 +61,6 @@ public class ColorChoice : MonoBehaviour
         playerTwoText.color = Color.blue;
         playerThreeText.color = Color.red;
         playerFourText.color = Color.green;
+        Debug.Log("player color is yellow");
     }
 }

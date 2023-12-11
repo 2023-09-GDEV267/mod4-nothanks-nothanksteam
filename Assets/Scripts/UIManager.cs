@@ -13,4 +13,12 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.LoadScene("SelectPlayers");
     }
+    public void Options()
+    {
+        SceneManager.LoadScene("Options");
+    }
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 }
