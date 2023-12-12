@@ -6,31 +6,44 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-
-    public string lastScene; 
-    public void LoadSinglePlayerGame()
+    public static UIManager S;
+    public void Awake()
     {
-        lastScene = SceneManager.GetActiveScene().name;
+        if (S == null) { S = this; }
+    }
+
+
+    public static void LoadSinglePlayerGame()
+    {
+        PlayerPrefs.SetString("previousScene", SceneManager.GetActiveScene().name);
         SceneManager.LoadScene("GameLoop");
     }
 
-    public void LoadMultiplayerGame()
+    public static void LoadMultiplayerGame()
     {
-        lastScene = SceneManager.GetActiveScene().name;
+        PlayerPrefs.SetString("previousScene", SceneManager.GetActiveScene().name);
         Debug.Log("Multiplayer Game not implemented.");
     }
-    public void LoadOptionsScreen()
+    public static void LoadOptionsScreen()
     {
-        lastScene = SceneManager.GetActiveScene().name;
+        PlayerPrefs.SetString("previousScene", SceneManager.GetActiveScene().name);
         SceneManager.LoadScene("Options");
     }
 
-    public void Back()
-    {
-        SceneManager.LoadScene(lastScene);
+    public static void Back()
+    { 
+        if (PlayerPrefs.HasKey("previousScene") && PlayerPrefs.GetString("previousScene")!= null)
+        {
+            SceneManager.LoadScene(PlayerPrefs.GetString("previousScene"));
+        }
+        else
+        {
+            Debug.Log("Error: No previous scene set");
+        }
+
     }
 
-    public void ExitGame()
+    public static void ExitGame()
     {
         Application.Quit();
     }
