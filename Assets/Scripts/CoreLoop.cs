@@ -77,54 +77,7 @@ public class CoreLoop : MonoBehaviour
         CalculateScore(randomCards, 0);*/
 
 
-        currentPlayerIndex = 0;
         
-        maxPlayers = 4;
-
-        targetCard = deck.Draw();
-        targetCard.transform.position = Vector3.zero;
-        targetCard.transform.localScale = new Vector3(1,-1,1);
-
-
-        players[0] = Instantiate(playerPrefab, new Vector3(0, -10, 0), Quaternion.identity);
-        players[0].playerName = "Human Player";
-        players[0].playerID = 1;
-        players[0].playerColor = Color.blue;
-        players[0].type = PlayerType.Human;
-
-
-        players[1] = Instantiate(playerPrefab, new Vector3(-10, 0, 0), Quaternion.identity);
-        players[1].playerName = "Krumbo";
-        players[1].playerID = 2;
-        players[1].playerColor = Color.red;
-        players[1].type = PlayerType.Bot;
-
-        players[2] = Instantiate(playerPrefab, new Vector3(0, 10, 0), Quaternion.identity);
-        players[2].playerName = "Glumpus";
-        players[2].playerID = 3;
-        players[2].playerColor = Color.yellow;
-        players[2].type = PlayerType.Bot;
-
-        players[3] = Instantiate(playerPrefab, new Vector3(10, 0, 0), Quaternion.identity);
-        players[3].playerName = "Jeff";
-        players[3].playerID = 4;
-        players[3].playerColor = Color.green;
-        players[3].type = PlayerType.Bot;
-
-        for (int i = 0; i < players.Length; i++)
-        {
-            players[i].transform.parent = playerAnchors[i].transform; 
-            players[i].transform.localPosition = Vector3.zero;
-        }
-        foreach (Player p in players)
-        {
-            p.markers = 11;
-            p.UpdateHeldMarkersDisplay();
-            p.gameObject.transform.parent.Find("Canvas").Find("Name").GetComponent<TMP_Text>().text = p.playerName;
-        }
-        roundPlayer = players[currentPlayerIndex];
-        currentPlayer = roundPlayer;
-        UpdateUIDisplay();
     }
 
 
@@ -159,6 +112,58 @@ public class CoreLoop : MonoBehaviour
             Debug.Log(line);
         }
     }*/
+
+    public void StartGame()
+    {
+        currentPlayerIndex = 0;
+
+        maxPlayers = 4;
+
+        targetCard = deck.Draw();
+        targetCard.transform.position = Vector3.zero;
+        targetCard.transform.localScale = new Vector3(1, -1, 1);
+
+
+        players[0] = Instantiate(playerPrefab, new Vector3(0, -10, 0), Quaternion.identity);
+        players[0].playerName = "Human Player";
+        players[0].playerID = 1;
+        players[0].playerColor = Color.blue;
+        players[0].type = PlayerType.Human;
+
+
+        players[1] = Instantiate(playerPrefab, new Vector3(-10, 0, 0), Quaternion.identity);
+        players[1].playerName = "Krumbo";
+        players[1].playerID = 2;
+        players[1].playerColor = Color.red;
+        players[1].type = PlayerType.Bot;
+
+        players[2] = Instantiate(playerPrefab, new Vector3(0, 10, 0), Quaternion.identity);
+        players[2].playerName = "Glumpus";
+        players[2].playerID = 3;
+        players[2].playerColor = Color.yellow;
+        players[2].type = PlayerType.Bot;
+
+        players[3] = Instantiate(playerPrefab, new Vector3(10, 0, 0), Quaternion.identity);
+        players[3].playerName = "Jeff";
+        players[3].playerID = 4;
+        players[3].playerColor = Color.green;
+        players[3].type = PlayerType.Bot;
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            players[i].transform.parent = playerAnchors[i].transform;
+            players[i].transform.localPosition = Vector3.zero;
+        }
+        foreach (Player p in players)
+        {
+            p.markers = 11;
+            p.UpdateHeldMarkersDisplay();
+            p.gameObject.transform.parent.Find("Canvas").Find("Name").GetComponent<TMP_Text>().text = p.playerName;
+        }
+        roundPlayer = players[currentPlayerIndex];
+        currentPlayer = roundPlayer;
+        UpdateUIDisplay();
+    }
 
     public static List<List<Card>> SortStreaks(List<Card> cards)
     {

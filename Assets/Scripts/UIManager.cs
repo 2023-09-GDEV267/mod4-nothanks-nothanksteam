@@ -7,41 +7,65 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     public static UIManager S;
+    public Animator optionsMenu;
+    public Animator gamePanel;
+    public Animator playObjects;
+    public Animator startMenu;
+
     public void Awake()
     {
         if (S == null) { S = this; }
+        optionsMenu.SetBool("optionsActive", false);
+        gamePanel.SetBool("gameIn", false);
+        playObjects.SetBool("playIn", false);
+        startMenu.SetBool("startActive", true);
     }
 
-
-    public static void LoadSinglePlayerGame()
+    public void StartSingleButton()
     {
-        PlayerPrefs.SetString("previousScene", SceneManager.GetActiveScene().name);
-        SceneManager.LoadScene("GameLoop");
+        gamePanel.SetBool("gameIn", true);
+        playObjects.SetBool("playIn", true);
+        startMenu.SetBool("startActive", false);
     }
 
-    public static void LoadMultiplayerGame()
+    public void OptionsButton()
     {
-        PlayerPrefs.SetString("previousScene", SceneManager.GetActiveScene().name);
-        Debug.Log("Multiplayer Game not implemented.");
+        optionsMenu.SetBool("optionsActive", true);
     }
-    public static void LoadOptionsScreen()
+
+    public void BackButton()
     {
-        PlayerPrefs.SetString("previousScene", SceneManager.GetActiveScene().name);
-        SceneManager.LoadScene("Options");
+        optionsMenu.SetBool("optionsActive", false);
     }
 
-    public static void Back()
-    { 
-        if (PlayerPrefs.HasKey("previousScene") && PlayerPrefs.GetString("previousScene")!= null)
-        {
-            SceneManager.LoadScene(PlayerPrefs.GetString("previousScene"));
-        }
-        else
-        {
-            Debug.Log("Error: No previous scene set");
-        }
+    //public static void LoadSinglePlayerGame()
+    //{
+    //    PlayerPrefs.SetString("previousScene", SceneManager.GetActiveScene().name);
+    //    SceneManager.LoadScene("GameLoop");
+    //}
 
-    }
+    //public static void LoadMultiplayerGame()
+    //{
+    //    PlayerPrefs.SetString("previousScene", SceneManager.GetActiveScene().name);
+    //    Debug.Log("Multiplayer Game not implemented.");
+    //}
+    //public static void LoadOptionsScreen()
+    //{
+    //    PlayerPrefs.SetString("previousScene", SceneManager.GetActiveScene().name);
+    //    SceneManager.LoadScene("Options");
+    //}
+
+    //public static void Back()
+    //{ 
+    //    if (PlayerPrefs.HasKey("previousScene") && PlayerPrefs.GetString("previousScene")!= null)
+    //    {
+    //        SceneManager.LoadScene(PlayerPrefs.GetString("previousScene"));
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("Error: No previous scene set");
+    //    }
+    //}
 
     public static void ExitGame()
     {
