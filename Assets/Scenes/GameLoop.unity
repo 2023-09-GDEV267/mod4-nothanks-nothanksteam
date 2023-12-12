@@ -1308,7 +1308,7 @@ MonoBehaviour:
   markersAnchor: {fileID: 864466420}
   markerPrefab: {fileID: 303144914722154976, guid: 33b83ab891e084342830a5b8e809a0bd, type: 3}
   markerSpriteScatter: 0.75
-  roundSpeed: 1
+  roundSpeed: 0.5
   playerUI:
   - {fileID: 1561528614}
   - {fileID: 585235191}

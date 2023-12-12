@@ -184,6 +184,7 @@ public class CoreLoop : MonoBehaviour
                 currentStreak = new List<Card> { sortedCards[i] };
             }
         }
+        streaks.Add(currentStreak);
         return streaks;
     }
 

@@ -87,7 +87,7 @@ public class Player : MonoBehaviour
         streaks = CoreLoop.SortStreaks(cards);
         
         // Printing streaks to help with checking scores
-        string str = $"{playerName} Streaks:\n";
+/*        string str = $"{playerName} Streaks:\n";
         streaks.ForEach(streak =>
         {
 
@@ -97,7 +97,7 @@ public class Player : MonoBehaviour
             }
             str += "\n";
         });
-        Debug.Log(str);
+        Debug.Log(str);*/
     }
     public void DisplayCards()
     {
