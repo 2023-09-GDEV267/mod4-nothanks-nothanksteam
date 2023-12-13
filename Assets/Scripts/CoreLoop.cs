@@ -32,7 +32,12 @@ public class CoreLoop : MonoBehaviour
     public Card targetCard;
     public int maxPlayers;
     Player[] players = new Player[4];
+    public static CoreLoop S;
 
+    private void Awake()
+    {
+        if (S == null) { S = this; }
+    }
 
     void Start()
     {
@@ -163,6 +168,7 @@ public class CoreLoop : MonoBehaviour
         roundPlayer = players[currentPlayerIndex];
         currentPlayer = roundPlayer;
         UpdateUIDisplay();
+        AudioManager.S.ShuffleSound();
     }
 
     public static List<List<Card>> SortStreaks(List<Card> cards)
@@ -315,8 +321,8 @@ public class CoreLoop : MonoBehaviour
     public void TakeCard()
     {
         // Player accepts the card
-        currentPlayer.ReceiveCard(targetCard);
         AudioManager.S.CollectTokensSound(targetCard.markers);
+        currentPlayer.ReceiveCard(targetCard);
         Debug.Log($"{currentPlayer.playerName} has taken the {targetCard.value} card!");
         UpdateUIDisplay();
         NewRound();

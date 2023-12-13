@@ -12,6 +12,8 @@ public class AudioManager : MonoBehaviour
     public AudioClip gameClip;
     public AudioClip scoringClip;
     public float fadeTime;
+    [Range(0f, 1f)]
+    public float volMod;
 
     [Header("SFX")]
     public Slider sfxSlider;
@@ -52,30 +54,29 @@ public class AudioManager : MonoBehaviour
         musicSource.volume = 0f;
         musicSource.clip = menuClip;
         sfxSource = gameObject.transform.Find("SFXManager").gameObject.GetComponent<AudioSource>();
-        sfxSource.volume = sfxVol;
         fadeIn = true;
         fadeOut = false;
         currentClip = menuClip;
         musicSource.Play();
         musicMute = GameObject.Find("MuteMusic").GetComponent<Toggle>();
         sfxMute = GameObject.Find("MuteSFX").GetComponent<Toggle>();
-        musicSlider.value = musicVol = PlayerPrefs.GetFloat("musicVolume");
-        sfxSlider.value = sfxVol = PlayerPrefs.GetFloat("sfxVolume");
+        musicVol = musicSlider.value = PlayerPrefs.GetFloat("musicVolume");
+        sfxVol = sfxSlider.value = PlayerPrefs.GetFloat("sfxVolume");
     }
 
     void Update()
     {
-        if (fadeIn && musicSource.volume < 1)
+        if (fadeIn)
         {
             musicSource.volume += musicVol * Time.deltaTime / fadeTime;
-            if (musicSource.volume >= musicVol)
+            if (musicSource.volume >= musicVol * volMod)
             {
-                musicSource.volume = musicVol;
+                musicSource.volume = musicVol * volMod;
                 fadeIn = false;
             }
         }
 
-        if (fadeOut && musicSource.volume > 0)
+        if (fadeOut)
         {
             musicSource.volume -= musicVol * Time.deltaTime / fadeTime;
             if (musicSource.volume <= 0)

@@ -6,11 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-    public static UIManager S;
     public Animator optionsMenu;
     public Animator gamePanel;
     public Animator playObjects;
     public Animator startMenu;
+
+    public static UIManager S;
 
     public void Awake()
     {
@@ -26,6 +27,13 @@ public class UIManager : MonoBehaviour
         gamePanel.SetBool("gameIn", true);
         playObjects.SetBool("playIn", true);
         startMenu.SetBool("startActive", false);
+        AudioManager.S.GameMusic();
+        Invoke("CallToStart", 2);
+    }
+
+    private void CallToStart()
+    {
+        CoreLoop.S.StartGame();
     }
 
     public void OptionsButton()
@@ -36,6 +44,11 @@ public class UIManager : MonoBehaviour
     public void BackButton()
     {
         optionsMenu.SetBool("optionsActive", false);
+    }
+
+    public static void GoToTitle()
+    {
+        SceneManager.LoadScene("ScreenFlowIntegration");
     }
 
     //public static void LoadSinglePlayerGame()
