@@ -8,6 +8,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using TMPro;
+using UnityEditor;
 
 public enum GameState
 {
@@ -257,6 +258,10 @@ public class CoreLoop : MonoBehaviour
 
     public void NewRound()
     {
+        foreach (Player player in players)
+        {
+            AnimateStreaks(player);
+        }
         //check if deck is empty
         //if empty, go to scoring
         if (deck.cards.Count <= 0)
@@ -285,12 +290,34 @@ public class CoreLoop : MonoBehaviour
         }
     }
 
+    public void AnimateStreaks(Player player)
+    {
+        Vector3 streakPos = player.cardAnchor.transform.position;
+        foreach (List<Card> streak in player.streaks)
+        {
+            int streakCount = 0;
+            int cardCount = 0;
+
+            foreach (Card card in streak)
+            {
+                card.targetPos = new Vector3(streakPos.x + cardCount, streakPos.y, 0);
+                cardCount++;
+            }
+            streakPos = new Vector3(streakPos.x + cardCount + .5f, player.cardAnchor.transform.position.y, 0);
+            cardCount = 0;
+            streakCount++;
+
+
+        }
+    }
+
     public void FinalScoring()
     {
         AudioManager.S.ScoringMusic();
         // Calculate each player's score and display it in the UI
         foreach (Player player in players)
         {
+            AnimateStreaks(player);
             player.score = CalculateScore(player.cards, player.markers);
             player.gameObject.transform.parent.Find("Canvas").Find("Score").gameObject.SetActive(true);
 
