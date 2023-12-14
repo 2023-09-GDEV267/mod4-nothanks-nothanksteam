@@ -33,6 +33,7 @@ public class UIManager : MonoBehaviour
 
     private void CallToStart()
     {
+
         CoreLoop.S.StartGame();
     }
 

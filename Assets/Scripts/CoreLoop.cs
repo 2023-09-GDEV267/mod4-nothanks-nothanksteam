@@ -9,6 +9,11 @@ using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using TMPro;
 
+public enum GameState
+{
+    playing,
+    standby
+} 
 public class CoreLoop : MonoBehaviour
 {
     [Header("Set in Inspector")]
@@ -24,6 +29,7 @@ public class CoreLoop : MonoBehaviour
     public TextMeshProUGUI currentPlayerText;
 
     [Header("Set Dynamically")]
+    public GameState gameState = GameState.standby;
     public int currentPlayerIndex;
     public Player currentPlayer;
     public int roundPlayerIndex;
@@ -37,138 +43,70 @@ public class CoreLoop : MonoBehaviour
     private void Awake()
     {
         if (S == null) { S = this; }
+        deck = GetComponent<Deck>();
     }
-
-    void Start()
-    {
-        deck = GetComponent<Deck>();    
-
-/*        // Fixed list for testing score calculation
-        List<int> testList = new List<int> { 32, 29, 35, 21, 20, 22, 15 };
-        List<Card> testCards = new List<Card>();
-
-        // Randomized list
-        List<Card> randomCards = new List<Card>();
-        HashSet<int> randomSet = new HashSet<int>();
-        
-        //Populating fixed card list
-        foreach (int value in testList)
-        {
-            Card newCard = new Card();
-            newCard.value = value;
-            testCards.Add(newCard);
-        }
-
-        // Generating HashSet of non-repeating random numbers within range 
-        for (int i = 0; i < Random.Range(3, 15); i++)
-        {
-
-            randomSet.Add(Random.Range(3, 35));
-        }
-        
-        // Creating a set of random cards
-        foreach(int value in randomSet)
-        {
-            Card newCard = new Card();
-            newCard.value = value;
-            randomCards.Add(newCard);
-        }
-
-        // Testing scoring
-        Debug.Log("Testing scoring on fixed cards");
-        CalculateScore(testCards,0);
-
-        Debug.Log("Testing Scoring on random cards");
-        CalculateScore(randomCards, 0);*/
-
-
-        
-    }
-
-
-
-    // Old method for calculating score from when I was working with a list of ints
-/*    public void OldCalculateScore(List<int> cardValues)
-    {
-        
-        cardValues.Sort();
-        List<List<int>> streaks= new List<List<int>>();
-        List<int> currentStreak = new List<int> { cardValues[0] };
-        
-        for (int i = 1; i < cardValues.Count; i++){
-            if( cardValues[i] == currentStreak.Max() + 1)
-            {
-                currentStreak.Add(cardValues[i]);
-            }
-            else
-            {
-                streaks.Add(currentStreak);
-                currentStreak = new List<int> { cardValues[i] };
-            }
-        } 
-        
-        foreach(List<int> streak in streaks)
-        {
-            string line = "";
-            foreach(int value in streak)
-            {
-                line += $"{value} ";
-            }
-            Debug.Log(line);
-        }
-    }*/
 
     public void StartGame()
     {
-        currentPlayerIndex = 0;
-
-        maxPlayers = 4;
-
-        targetCard = deck.Draw();
-        targetCard.transform.position = Vector3.zero;
-        targetCard.transform.localScale = new Vector3(1, -1, 1);
-
-
-        players[0] = Instantiate(playerPrefab, new Vector3(0, -10, 0), Quaternion.identity);
-        players[0].playerName = "Human Player";
-        players[0].playerID = 1;
-        players[0].playerColor = Color.blue;
-        players[0].type = PlayerType.Human;
-
-
-        players[1] = Instantiate(playerPrefab, new Vector3(-10, 0, 0), Quaternion.identity);
-        players[1].playerName = "Krumbo";
-        players[1].playerID = 2;
-        players[1].playerColor = Color.red;
-        players[1].type = PlayerType.Bot;
-
-        players[2] = Instantiate(playerPrefab, new Vector3(0, 10, 0), Quaternion.identity);
-        players[2].playerName = "Glumpus";
-        players[2].playerID = 3;
-        players[2].playerColor = Color.yellow;
-        players[2].type = PlayerType.Bot;
-
-        players[3] = Instantiate(playerPrefab, new Vector3(10, 0, 0), Quaternion.identity);
-        players[3].playerName = "Jeff";
-        players[3].playerID = 4;
-        players[3].playerColor = Color.green;
-        players[3].type = PlayerType.Bot;
-
-        for (int i = 0; i < players.Length; i++)
+        // Ensure we can't call StartGame while there is currently already a game in progress
+        if (gameState == GameState.standby)
         {
-            players[i].transform.parent = playerAnchors[i].transform;
-            players[i].transform.localPosition = Vector3.zero;
+            deck.InitializeCards();
+            deck.Shuffle(ref deck.cards);
+            deck.BurnCards();
+            gameState = GameState.playing;
+            currentPlayerIndex = 0;
+
+            maxPlayers = 4;
+
+
+
+            players[0] = Instantiate(playerPrefab, new Vector3(0, -10, 0), Quaternion.identity);
+            players[0].playerName = "Human Player";
+            players[0].playerID = 1;
+            players[0].playerColor = Color.blue;
+            players[0].type = PlayerType.Human;
+
+
+            players[1] = Instantiate(playerPrefab, new Vector3(-10, 0, 0), Quaternion.identity);
+            players[1].playerName = "Krumbo";
+            players[1].playerID = 2;
+            players[1].playerColor = Color.red;
+            players[1].type = PlayerType.Bot;
+
+            players[2] = Instantiate(playerPrefab, new Vector3(0, 10, 0), Quaternion.identity);
+            players[2].playerName = "Glumpus";
+            players[2].playerID = 3;
+            players[2].playerColor = Color.yellow;
+            players[2].type = PlayerType.Bot;
+
+            players[3] = Instantiate(playerPrefab, new Vector3(10, 0, 0), Quaternion.identity);
+            players[3].playerName = "Jeff";
+            players[3].playerID = 4;
+            players[3].playerColor = Color.green;
+            players[3].type = PlayerType.Bot;
+
+            for (int i = 0; i < players.Length; i++)
+            {
+                players[i].transform.parent = playerAnchors[i].transform;
+                players[i].transform.localPosition = Vector3.zero;
+            }
+            foreach (Player p in players)
+            {
+                p.markers = 11;
+                p.UpdateHeldMarkersDisplay();
+                p.gameObject.transform.parent.Find("Canvas").Find("Name").GetComponent<TMP_Text>().text = p.playerName;
+            }
+            roundPlayer = players[currentPlayerIndex];
+            currentPlayer = roundPlayer;
+            UpdateUIDisplay();
+            AudioManager.S.ShuffleSound();
+            targetCard = deck.Draw();
+            targetCard.transform.position = Vector3.zero;
+            targetCard.transform.localScale = new Vector3(1, -1, 1);
         }
-        foreach (Player p in players)
-        {
-            p.markers = 11;
-            p.UpdateHeldMarkersDisplay();
-            p.gameObject.transform.parent.Find("Canvas").Find("Name").GetComponent<TMP_Text>().text = p.playerName;
-        }
-        roundPlayer = players[currentPlayerIndex];
-        currentPlayer = roundPlayer;
-        UpdateUIDisplay();
-        AudioManager.S.ShuffleSound();
+/*        deck.cards.ForEach(card => { card.targetPos = card.transform.parent.position; });*/
+
     }
 
     public static List<List<Card>> SortStreaks(List<Card> cards)
@@ -216,17 +154,6 @@ public class CoreLoop : MonoBehaviour
 
         }
         totalScore -= counters;
-
-/*        foreach (List<Card> streak in streaks)
-        {
-            string line = "";
-            foreach (Card card in streak)
-            {
-                line += $"{card.value} ";
-            }
-            Debug.Log(line);
-        }
-        Debug.Log($"The total score was {totalScore}");*/
         return totalScore;
     }
     public void UpdateUIDisplay()
@@ -246,7 +173,6 @@ public class CoreLoop : MonoBehaviour
 
     public void UpdateTargetCardMarkersDisplayed()
     {
-        /*        Debug.Log($"TargetCard: {targetCard}  Markers: {targetCard.markers}");*/
         if (targetCard.markers < 1)
         {
             if (markersAnchor.transform.childCount > 0)
@@ -288,7 +214,6 @@ public class CoreLoop : MonoBehaviour
         // Player refuses to take the card
         if (currentPlayer.markers < 1)
         {
-/*            Debug.Log($"{currentPlayer.playerName} is out of markers!");*/
 
             AudioManager.S.ErrorSound();
 
@@ -341,8 +266,8 @@ public class CoreLoop : MonoBehaviour
             Debug.Log("New Round!");
             targetCard = deck.Draw();
             UpdateTargetCardMarkersDisplayed();
-            targetCard.transform.position = Vector3.zero;
             targetCard.transform.localScale = new Vector3(1,-1,1);
+/*            targetCard.targetPos = Vector3.zero;*/
             if (roundPlayerIndex >= maxPlayers - 1) { roundPlayerIndex = 0; }
             else { roundPlayerIndex++; }
             roundPlayer = players[roundPlayerIndex];

@@ -81,9 +81,10 @@ public class Player : MonoBehaviour
         cards.Add(card);
         AddMarkers(card.markers);
         card.markers = 0;
-        card.transform.SetParent(cardAnchor.transform);
-        card.transform.localPosition = new Vector3(0 + cards.Count - 1, 0, 0);
-        card.transform.localScale = new Vector3(.5f, -.5f, 1);
+/*        card.transform.SetParent(cardAnchor.transform);*/
+//        card.transform.localPosition = new Vector3(0 + cards.Count - 1, 0, 0);
+     card.transform.localScale = new Vector3(.5f, -.5f, 1);
+        card.targetPos = new Vector3(cardAnchor.transform.position.x + cards.Count - 1, cardAnchor.transform.position.y, 0) ;
         streaks = CoreLoop.SortStreaks(cards);
         
         // Printing streaks to help with checking scores

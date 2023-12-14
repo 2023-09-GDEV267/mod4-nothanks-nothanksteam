@@ -8,18 +8,18 @@ public class Deck : MonoBehaviour
     public Transform deckAnchor;
     public List<GameObject> cardsPrefabs;
     public GameObject cardBackPrefab; // The back of the card, to display as a stand-in for the stacked deck in the center of the game table
+    public float cardMovementSpeed = .3f;
 
     [Header("Set Dynamically")]
     public GameObject cardBack;
     public List<Card> cards;
     
-    // Start is called before the first frame update
-    void Start()
+/*    void Awake()
     {
         InitializeCards();
         Shuffle(ref cards);
         BurnCards();
-    }
+    }*/
 
 
 
@@ -47,15 +47,18 @@ public class Deck : MonoBehaviour
 
     public void BurnCards()
     {
-        cards.RemoveRange(0, 9);
+        for (int i = 0; i < 9; i++) {
+            Destroy(cards[i].gameObject);
+            cards.Remove(cards[i]);
+        }
     }
 
     public Card Draw()
     {
         if(cards.Count < 1) return null;
         Card drawnCard = cards[0];
+        drawnCard.targetPos = Vector3.zero;
         cards.RemoveAt(0);
-        drawnCard.SetVisible(true);
         if (cards.Count < 1)
         {
            cardBack.SetActive(false);
@@ -66,17 +69,19 @@ public class Deck : MonoBehaviour
     public void InitializeCards()
     {
         cardBack = Instantiate(cardBackPrefab);
+
         cardBack.transform.SetParent(deckAnchor);
         cardBack.transform.localPosition = Vector3.zero;
         foreach (GameObject card in cardsPrefabs)
         {
             GameObject cardGameObject = Instantiate(card);
-            cardGameObject.transform.parent = deckAnchor;
-            cardGameObject.transform.localPosition = Vector3.zero;
-            cardGameObject.GetComponent<Card>().SetVisible(false);
+            cardGameObject.GetComponent<Card>().speed = cardMovementSpeed; // Setting this here to avoid editing each prefab individually
+/*            cardGameObject.transform.SetParent(deckAnchor);*/
+            cardGameObject.transform.position = deckAnchor.transform.position;
             Card newCard = cardGameObject.GetComponent<Card>();
             cards.Add(newCard);
         }
         
     }
+
 }
