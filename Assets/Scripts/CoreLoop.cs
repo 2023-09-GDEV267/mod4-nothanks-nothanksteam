@@ -27,6 +27,7 @@ public class CoreLoop : MonoBehaviour
     public List<GameObject> playerUI; // A list of UI elements to hide when it is not the human player's turn
     public TextMeshProUGUI roundPlayerText;
     public TextMeshProUGUI currentPlayerText;
+    public TextMeshProUGUI winText;
 
     [Header("Set Dynamically")]
     public GameState gameState = GameState.standby;
@@ -51,6 +52,7 @@ public class CoreLoop : MonoBehaviour
         // Ensure we can't call StartGame while there is currently already a game in progress
         if (gameState == GameState.standby)
         {
+            winText.gameObject.SetActive(false);
             deck.InitializeCards();
             deck.Shuffle(ref deck.cards);
             deck.BurnCards();
@@ -248,7 +250,7 @@ public class CoreLoop : MonoBehaviour
         // Player accepts the card
         AudioManager.S.CollectTokensSound(targetCard.markers);
         currentPlayer.ReceiveCard(targetCard);
-        Debug.Log($"{currentPlayer.playerName} has taken the {targetCard.value} card!");
+/*        Debug.Log($"{currentPlayer.playerName} has taken the {targetCard.value} card!");*/
         UpdateUIDisplay();
         NewRound();
     }
@@ -331,9 +333,10 @@ public class CoreLoop : MonoBehaviour
         else
         {
             nameString = winners[0].playerName;
-            finalScoreString = $"The winner is {nameString}";
+            finalScoreString = $"The winner is {nameString}!";
         }
-        Debug.Log(finalScoreString);
+        winText.gameObject.SetActive(true);
+        winText.text = finalScoreString;
     }
 
     void PrintGameState()
