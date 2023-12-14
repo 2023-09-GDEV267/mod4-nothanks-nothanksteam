@@ -318,6 +318,8 @@ public class CoreLoop : MonoBehaviour
 
     public void FinalScoring()
     {
+        currentPlayer = players[players.Length-1]; // Setting the current player to a known non-human player to hide the player take/no thanks UI
+        UpdateUIDisplay();
         AudioManager.S.ScoringMusic();
         // Calculate each player's score and display it in the UI
         foreach (Player player in players)
