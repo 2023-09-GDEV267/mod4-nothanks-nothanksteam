@@ -201,8 +201,13 @@ public class CoreLoop : MonoBehaviour
     public void BotChoice()
     {
         float takeChance = (2.5f * targetCard.value) - (3 * targetCard.markers);
+        bool isConsecutive = false;
+        currentPlayer.cards.ForEach(card =>
+        {
+            if (card.value == targetCard.value - 1 || card.value == targetCard.value + 1) isConsecutive = true;
+        });
 
-        if (Random.Range(0, 100) > takeChance)
+        if (isConsecutive == true || Random.Range(0, 100) > takeChance)
         {
             TakeCard();
         }
